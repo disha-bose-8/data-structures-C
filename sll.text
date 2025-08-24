@@ -1,0 +1,48 @@
+// Basic
+void init_list(LIST *ptr);
+void insert_head(LIST *ptr, int data);
+void insert_end(LIST *ptr, int data);
+void insert_pos(LIST *ptr, int data, int pos);
+void display(LIST *ptr);
+
+// Count / Length
+int count_node(LIST *ptr);
+int count_node_recur(NODE *cur);
+
+// Deletion
+void delete_front(LIST *ptr);
+void delete_rear(LIST *ptr);
+void delete_pos(LIST *ptr, int pos);
+void delete_node(LIST *ptr, int data);
+void delete_alternate(LIST *ptr);
+void delete_all(LIST *ptr);           // Free entire list
+void delete_duplicates(LIST *ptr);    // If duplicates exist
+
+// Ordered Insertion
+void orderlist(LIST *ptr, int ele);     // ascending insert
+void orderlistdes(LIST *ptr, int ele);  // descending insert
+
+// Search
+void search(LIST *ptr, int ele);        // basic search
+void search_all(LIST *ptr, int ele);    // find all positions
+
+// Reverse / Print
+void reverse(LIST *ptr);
+void print_reverse_recur(NODE *cur);
+void print_reverse(LIST *ptr);
+
+// Sorting
+void sortAscending(LIST *ptr);
+void sortDescending(LIST *ptr);
+
+// Advanced
+void find_middle(LIST *ptr);            // slow-fast pointer method
+void nth_from_end(LIST *ptr, int n);    // get nth node from end
+void check_sorted(LIST *ptr);           // verify sorted or not
+void merge_sorted(LIST *p1, LIST *p2, LIST *result);  // merge 2 sorted lists
+void concatenate(LIST *p1, LIST *p2);   // append list2 at end of list1
+void split_half(LIST *ptr, LIST *first, LIST *second); // split into halves
+
+// Loop handling
+int detect_loop(LIST *ptr);             // Floyd’s cycle detection
+void remove_loop(LIST *ptr);            // remove loop if exists

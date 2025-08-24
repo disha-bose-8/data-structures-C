@@ -1,5 +1,5 @@
 //
-// Corrected Linked List Program - 24-08-2025
+// Singly Linked List Program - 24-08-2025
 //
 #include <stdio.h>
 #include <stdlib.h>
@@ -31,6 +31,18 @@ void print_reverse_recur(NODE *cur);
 void print_reverse(LIST *ptr);
 //int delete_rear(LIST *ptr);
 void delete_rear(LIST *ptr);
+void delete_front(LIST *ptr);
+//int delete_front(LIST *ptr);
+void orderlist(LIST *ptr, int ele);
+void orderlistdes(LIST *ptr, int ele);
+void search(LIST *ptr, int ele);
+void sortAscending(LIST *ptr);
+void sortDescending(LIST *ptr);
+void delete_all(LIST *ptr);
+void delete_duplicates(LIST *ptr);
+void delete_duplicates_unsorted(LIST *ptr);
+void delete_reverse(LIST *ptr);
+void check_order(LIST *ptr);
 
 int main()
 {
@@ -51,7 +63,18 @@ int main()
         printf("8..Delete alternate nodes\n");
         printf("9..Print reverse order\n");
     	printf("10..Delete at rear\n");
-    	printf("11..Exit\n");
+    	printf("11..Delete at front\n");
+    	printf("12..Insert in sorted order (ascending)\n");
+    	printf("13..Insert in sorted order (descending)\n");
+    	printf("14..Search element\n");
+    	printf("15..Sort Ascending\n");
+    	printf("16..Sort Descending\n");
+    	printf("17..Delete all nodes\n");
+    	printf("18..Delete duplicates (sorted list only)\n");
+    	printf("19..Delete duplicates (unsorted)\n");
+    	printf("20..Delete reverse order\n");
+    	printf("21..Check order");
+    	printf("22..Exit\n");
         scanf("%d", &ch);
         switch (ch)
         {
@@ -101,14 +124,122 @@ int main()
         	printf("Deleted rear node.\n");
         	printf("\n");
         	break;
-
         case 11:
-        	printf("Exit\n");
-        	exit(0);
+        	delete_front(&l);
+	        printf("Deleted front node.\n");
+	        break;
+        case 12:
+        	printf("Enter data: ");
+        	scanf("%d", &n);
+        	orderlist(&l, n);
+        	break;
+        case 13:
+        	printf("Enter data: ");
+	        scanf("%d", &n);
+	        orderlistdes(&l, n);
+        	break;
+        case 14:
+        	printf("Enter element to search: ");
+	        scanf("%d", &n);
+	        search(&l, n);
+	        break;
+        case 15:
+        	sortAscending(&l);
+	        display(&l);
+	        break;
+
+        case 16:
+        	sortDescending(&l);
+	        display(&l);
+	        break;
+
+        case 17:
+        	delete_all(&l);
+	        printf("All nodes deleted.\n");
+	        break;
+
+        case 18:
+        	delete_duplicates(&l);
+	        printf("Duplicate nodes deleted (if any).\n");
+	        break;
+
+        case 19:
+        	delete_duplicates_unsorted(&l);
+	        printf("Duplicate nodes removed from unsorted list.\n");
+	        break;
+
+        case 20:
+        	delete_reverse(&l);
+        	printf("Deleted reverse order.\n");
+        	break;
+
+        case 21:
+        	check_order(&l);
+        	printf("checking order\n");
+        	break;
+
+        case 22:
+        	printf("Exiting program.\n");
+			exit(0);
         default:
             printf("Invalid choice!\n");
         }
     }
+}
+
+void sortAscending(LIST *ptr) {
+	if (ptr->head == NULL || ptr->head->link == NULL) {
+		return; // empty or single node
+	}
+
+	NODE *i, *j;
+	int temp;
+	for (i = ptr->head; i->link != NULL; i = i->link) {
+		for (j = i->link; j != NULL; j = j->link) {
+			if (i->data > j->data) {
+				// swap
+				temp = i->data;
+				i->data = j->data;
+				j->data = temp;
+			}
+		}
+	}
+}
+
+void sortDescending(LIST *ptr) {
+	if (ptr->head == NULL || ptr->head->link == NULL) {
+		return;
+	}
+
+	NODE *i, *j;
+	int temp;
+	for (i = ptr->head; i->link != NULL; i = i->link) {
+		for (j = i->link; j != NULL; j = j->link) {
+			if (i->data < j->data) {
+				// swap
+				temp = i->data;
+				i->data = j->data;
+				j->data = temp;
+			}
+		}
+	}
+}
+
+
+void search(LIST *ptr, int ele) {
+	NODE *cur = ptr->head;
+	int pos = 1;  // start from position 1
+
+	while (cur != NULL) {
+		if (cur->data == ele) {
+			printf("Element %d found at position %d\n", ele, pos);
+			return;
+		}
+		cur = cur->link;
+		pos++;
+	}
+
+	printf("Element %d not found!\n", ele);
 }
 
 void init_list(LIST *ptr) //initialize ll
@@ -231,9 +362,20 @@ int count_node_recur(NODE *cur)
 
 void print_reverse(LIST *ptr)
 {
-    print_reverse_recur(ptr->head);
+    //print_reverse_recur(ptr->head);
+	NODE *prev = NULL;
+	NODE *cur = ptr->head;
+	NODE *next = NULL;
+	while (cur != NULL) {
+		next = cur->link;
+		cur->link = prev;
+		prev = cur;
+		cur = next;
+	}
+	ptr->head = prev;
 }
 
+/*
 void print_reverse_recur(NODE *cur)
 {
     if (cur == NULL)
@@ -241,6 +383,7 @@ void print_reverse_recur(NODE *cur)
     print_reverse_recur(cur->link);
     printf("%d -> ", cur->data);
 }
+*/
 
 void delete_node(LIST *ptr, int data) //delete a particluar node by value
 {
@@ -297,6 +440,35 @@ void delete_pos(LIST *ptr, int pos)
 
     free(cur);
 }
+
+void delete_front(LIST *ptr) {
+	if (ptr->head == NULL) {
+		printf("List is empty. Nothing to delete.\n");
+		return;
+	}
+
+	NODE *temp = ptr->head;   // store current head
+	ptr->head = ptr->head->link;  // move head to next node
+	free(temp);               // free memory of old head
+}
+
+/*
+int delete_front(LIST *ptr)
+	{
+	if (ptr->head == NULL)
+		return 9999;
+	else {
+		NODE *first = ptr->head;
+		NODE *second = first->link;
+		int x;
+		x=first->data;
+		free(first);
+		ptr->head = second;
+		return(x);
+	}
+	}
+	*/
+
 
 void delete_alternate(LIST *ptr) //function deletes every second node in the linked list
 {
@@ -369,305 +541,164 @@ void delete_rear(LIST *ptr) {
 	free(cur);
 }
 
+void orderlist(LIST *ptr, int ele) { //insert in a sorted array (ascending)
+	NODE *temp = malloc(sizeof(NODE));
+	temp->data = ele;
+	temp->link = NULL;
 
+	// Case 1: Empty list or insert at front
+	if (ptr->head == NULL || ele < ptr->head->data) {
+		temp->link = ptr->head;
+		ptr->head = temp;
+		return;
+	}
 
+	NODE *cur = ptr->head;
+	NODE *prev = NULL;
+
+	// Traverse until we find correct position
+	while (cur != NULL && cur->data < ele) {
+		prev = cur;
+		cur = cur->link;
+	}
+
+	// Insert between prev and cur
+	prev->link = temp;
+	temp->link = cur;
+}
+
+void orderlistdes(LIST *ptr, int ele) {
+	NODE *temp = malloc(sizeof(NODE));
+	temp->data = ele;
+	temp->link = NULL;
+
+	// Empty or insert at front (if ele > head->data)
+	if (ptr->head == NULL || ele > ptr->head->data) {
+		temp->link = ptr->head;
+		ptr->head = temp;
+		return;
+	}
+
+	NODE *cur = ptr->head;
+	NODE *prev = NULL;
+
+	while (cur != NULL && cur->data > ele) { // Notice '>' instead of '<'
+		prev = cur;
+		cur = cur->link;
+	}
+
+	prev->link = temp;
+	temp->link = cur;
+
+}
+
+void delete_all(LIST *ptr) {
+	NODE *cur = ptr->head;
+	NODE *temp;
+	while (cur) {
+		temp = cur;
+		cur = cur->link;
+		free(temp);
+	}
+	ptr->head = NULL;
+}
+
+void delete_duplicates(LIST *ptr) {
+	NODE *cur = ptr->head;
+	while (cur && cur->link) {
+		if (cur->data == cur->link->data) {
+			NODE *dup = cur->link;
+			cur->link = dup->link;
+			free(dup);
+		} else {
+			cur = cur->link;
+		}
+	}
+}
+
+void delete_reverse(LIST *ptr) {
+	while (ptr->head != NULL) {
+		delete_rear(ptr);  // delete last node
+	}
+}
 /*
- #include<stdio.h>
-#include<stdlib.h>
-struct node
-{
-	int key;
-	struct node *link;
-};
-typedef struct node node_t;
-
-struct list
-{
-	node_t *head;
-};
-typedef struct list list_t;
-void init_list(list_t*);
-void delete_node(list_t *, int);
-void insert_head(list_t *, int);
-void insert_end(list_t*,int);
-void insert_pos(list_t *, int,int);
-void display(list_t *);
-void delete_pos(list_t *, int);
-int count_node(list_t *);
-int count_node_recur(node_t*);
-void print_reverse(list_t*);
-void print_reverse_recur(node_t*);
-//void delete_alternate(list_t *);
-
-int main()
-{
-   list_t l;
-   init_list(&l);
-    int n,ch,pos;
-   while(1)
-   {
-	   display(&l);
-	   printf("\n1..Insert at head\n");
-	   printf("2..Insert at end\n");
-	   printf("3..display\n");
-	   printf("4..Insert at a given position\n");
-	   printf("5..Delete  node given its value\n");
-	   printf("6..Delete  node given its position\n");
-	   printf("7..count number of nodes-recursion\n");
-	   printf("8..print the list in reverse\n");
-	   printf("9..exit\n");
-	   scanf("%d",&ch);
-	   switch(ch)
-	   {
-		   case 1: printf("\nEnter the element to be inserted..");
-		                 scanf("%d",&n);
-						 insert_head(&l,n);
-						 break;
-			case 2: printf("\nEnter the element to be inserted..");
-		                 scanf("%d",&n);
-						 insert_end(&l,n);
-						 break;
-			case 3: display(&l);
-			              break;
-
-			case 4: printf("\nEnter the element and position ..");
-						  scanf("%d %d",&n,&pos);
-						  insert_pos(&l,n,pos);
-                          break;
-          case 5: printf("\nEnter the element to be deleted ..");
-						scanf("%d",&n);
-						  delete_node(&l,n);
-                          break;
-           case 6: printf("\nEnter the position of node ..");
-						scanf("%d",&pos);
-						  delete_pos(&l,pos);
-                          break;
-           case 7: printf("Count the no of nodes using recurion");
-                        int k= count_node(&l);
-						printf("\nthe number of nodes = %d\n",k);
-                         break;
-             case 8: printf("print the list in reverse");
-                        print_reverse(&l);
-
-                         break;
-			case 9:exit(0);
-	   }
-   }
-}
-
-    void print_reverse(list_t *ptr)
-	{
-		print_reverse_recur(ptr->head);
-	}
-
-
-	void print_reverse_recur(node_t *cur)
-	{
-		if(cur->link!=NULL)
-			print_reverse_recur(cur->link);
-		printf("%d -> ",cur->key);
-	}
-
-
-int count_node(list_t *ptr)
- {
-	 int count=0;
-	 count=count_node_recur(ptr->head);
-	 return count;
- }
-
- int  count_node_recur(node_t *cur)
- {
-	 int count=0;
-	if(cur->link==NULL)//only one node
-      return 1;
-    count=1+count_node_recur(cur->link);
-	return count;
- }
-
-
-  void delete_node(list_t *ptr, int data)
-  {
-	  node_t *cur, *prev;
-	  prev=NULL;
-	  cur=ptr->head;
-
-	  //move forward until the node is found
-	  //or you go beyond the list
-	  while((cur!=NULL)&&(cur->key!=data))
-	  {
-	     prev=cur;
-		 cur=cur->link;
-	  }
-	  if(cur!=NULL) //node  found
-	  {
-		  //if first node
-		  if(prev==NULL) //it is the first node
-			  ptr->head=cur->link;
-			else
-		      prev->link=cur->link;
-	  }
-	else
-		printf("Node not found..\n");
-	free(cur);
-  }
-
-   void insert_pos(list_t *ptr, int data, int pos)
-   {
-	   node_t *cur, *temp, *prev;
-	   int i;
-		//create node and populate
-		temp=(node_t*)malloc(sizeof(node_t));
-        temp->key=data;
-		temp->link=NULL;
-
-		i=1;
-		prev=NULL;
-		cur=ptr->head;
-		//go to the desired position
-		while((cur!=NULL) &&(i<pos))
-		{
-			i++;
-			printf("i=%d\n",i);
-			prev=cur;
-			cur=cur->link;
-		}
-		if(cur!=NULL) //position is found some where between the first and last
-		{
-		   if(prev==NULL) //inserting in postion 1
-		   {
-			ptr->head=temp;
-			temp->link=cur;
-		}
-		else//prev is not NULL, inserting node in the middle
-		{
-			temp->link=cur;
-			prev->link=temp;
-		 }
-		}
-		else // cur NULL
-		{
-			if(i==pos)//insert at the end
-			  prev->link=temp;
-			else
-				printf("\nInvalid position..");
-		}
-   }
-
-
-    void insert_end(list_t *ptr, int data)
-	{
-		node_t *cur, *temp;
-		//create node and populate
-		temp=(node_t*)malloc(sizeof(node_t));
-        temp->key=data;
-		temp->link=NULL;
-
-		//is the list empty?
-
-		if(ptr->head==NULL)
-			ptr->head=temp;
-		else
-		{
-			 //list not empty, go to end of list
-			cur=ptr->head; //copy address of the first node
-			while(cur->link!=NULL)
-			    cur=cur->link;
-
-			cur->link=temp;
-		}
-	}
-
-
-     void display(list_t *ptr)
-	 {
-		 node_t *cur;
-        //is list empty ?
-		if(ptr->head==NULL)
-		   printf("\nEmpty list.\n");
-	   else
-	   {
-		   //copy the address of the first node
-		   cur=ptr->head;
-		   while(cur!=NULL)
-		   {
-			   printf("%d-->",cur->key);
-			   cur=cur->link;
-		   }
-	   }
-	 }
-
-	void insert_head(list_t *ptr, int data)
-	{
-	    node_t *temp;
-		temp=(node_t*)malloc(sizeof(node_t));
-        temp->key=data;
-		temp->link=NULL;
-
-		//is list empty ?
-		if(ptr->head==NULL)
-			ptr->head=temp;
-		else
-		{
-			temp->link=ptr->head;
-			ptr->head=temp;
-		}
-	}
-
-void init_list(list_t *ptr)
-{
-    ptr->head=NULL;
-}
-
- void delete_alternate(list_t *ptr)
- {
-	 node_t* cur, *prev;
-	 cur=ptr->head;
-	 prev=NULL;
-
-	 while(cur!=NULL)
-	 {
-		 if(prev==NULL)
-			 ptr->head=cur->link;
-		 else
-		     prev->link=cur->link;
-		 prev=cur->link;
-		 if(prev!=NULL)
-		     cur=prev->link;
-		 else
-			 cur=NULL;
+ void delete_reverse(LIST *ptr) {
+    if (!ptr->head) {
+        printf("List is empty. Nothing to delete.\n");
+        return;
     }
 
- }
+    NODE *cur;
+    NODE *prev;
 
-  void delete_pos(list_t *ptr, int pos)
-  {
+    while (ptr->head != NULL) {
+        cur = ptr->head;
+        prev = NULL;
 
-	  node_t *cur, *prev;
-	  cur=ptr->head;
-	  prev=NULL;
+        // Traverse to last node
+        while (cur->link != NULL) {
+            prev = cur;
+            cur = cur->link;
+        }
 
-	  int i =1;
-	  //move forward until the postion is found
-	  while((cur!=NULL)&&(i<pos))
-	  {
-		  i++;
-		  prev=cur;
-		  cur=cur->link;
-	  }
+        // cur is last node, prev is second-last
+        if (prev) {
+            prev->link = NULL;
+        } else {
+            // Only one node in list
+            ptr->head = NULL;
+        }
 
-     if(cur!=NULL)//position found
-     {
-         //if first position
-		 if(prev==NULL)
-			 ptr->head=cur->link; //make head point to second node
-		else // not the first node
-           	prev->link=cur->link;
+        printf("Deleting node with value: %d\n", cur->data);
         free(cur);
-     }
-   else
-	   printf("Invalid Position..\n");
-  }
-
+    }
+}
 */
+void check_order(LIST *ptr) {
+	if (!ptr->head || !ptr->head->link) {
+		printf("List has 0 or 1 node. Considered sorted.\n");
+		return;
+	}
+
+	NODE *cur = ptr->head;
+	int ascending = 1;
+	int descending = 1;
+
+	while (cur->link) {
+		if (cur->data < cur->link->data) {
+			descending = 0;  // Not descending
+		} else if (cur->data > cur->link->data) {
+			ascending = 0;   // Not ascending
+		}
+		cur = cur->link;
+	}
+
+	if (ascending) {
+		printf("List is in ascending order.\n");
+	} else if (descending) {
+		printf("List is in descending order.\n");
+	} else {
+		printf("List is unordered.\n");
+	}
+}
+
+void delete_duplicates_unsorted(LIST *ptr) {
+	if (!ptr->head) return;
+
+	NODE *cur = ptr->head;
+	while (cur != NULL) {
+		NODE *runner = cur;
+		while (runner->link != NULL) {
+			if (runner->link->data == cur->data) {
+				NODE *dup = runner->link;
+				runner->link = dup->link;
+				free(dup);
+			} else {
+				runner = runner->link;
+			}
+		}
+		cur = cur->link;
+	}
+}
+
 
