@@ -1,0 +1,274 @@
+/* WAP to insert_front, delete_front, display, insert_end, delete_end
+,concatenate, #of ele, sorting.
+*/
+#include<stdio.h>
+#include<stdlib.h>
+/* structure of a node in DLL*/
+struct node{
+ int data;
+ struct node *prev, *next;
+};
+struct node *head=NULL; /*assume that list is empty*/
+void insert_front(struct node **head, int value)
+{
+struct node *newnode=(struct node*)malloc(sizeof(struct node));
+newnode->data=value;
+newnode->prev=NULL;
+newnode->next=*head;
+if(*head!=NULL)
+{
+(*head)->prev=newnode;
+}
+*head=newnode;
+}
+
+void delete_front(struct node **head)
+{
+if(*head==NULL)
+{
+printf("The list is empty, deletion is not possible\n");
+return;
+}
+struct node *current=*head;
+if((*head)->next!=NULL)
+{
+  *head=(*head)->next;
+  (*head)->prev=NULL;
+} else {
+*head=NULL;
+}
+free(current);
+}
+
+void insert_end(struct node **head, int value)
+{
+struct node *newnode=(struct node*)malloc(sizeof(newnode));
+newnode->data=value;
+newnode->next=NULL;
+struct node *current=head;
+while(current->next!=NULL)
+{
+current=current->next;
+}
+current->next=newnode; /* connecting both the pointers*/
+newnode->prev=current;
+}
+
+void delete_end(struct node **head)
+{
+  if(*head==NULL)
+  {
+    printf("List is emtpy we cannot delete\n");
+    return;
+  }
+  struct node *current=*head;
+  while(current->next!=NULL)
+  {
+    current=current->next;
+  }
+  printf("The deleted ele %d is", current->data);
+  (current->prev)->next=NULL;
+  free(current);
+}
+void display(struct node *head)
+{
+    while(head!=NULL)
+    {
+        printf("%d -> ", head->data);
+        head=head->next;
+    }
+  printf("NULL\n");
+}
+int main()
+{
+int value, choice;
+printf("Enter the choice \n1) Insert_front \n2) Delete_front \n3) Insert_end \n4) Delete_end \n5) Display\n");
+while(1)
+{
+printf("\nEnter the choice\n");
+scanf("%d", &choice);
+switch(choice)
+{
+    case 1: printf("\nEnter the value\n");
+            scanf("%d", &value);
+            insert_front(&head, value);
+            break;
+    case 2: delete_front(&head);
+            break;
+    case 3: printf("\nEnter the value\n");
+            scanf("%d", &value);
+            insert_end(&head, value);
+            break;
+    case 4: delete_end(&head);
+            break;
+    case 5: display(head);
+            break;
+    default: printf("Invalid choice");
+             exit(1);
+}
+}
+}
+
+//program to implement circular doubly linked List
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+  int data;
+  struct node* next,*prev;
+};
+
+typedef struct node node_t;
+struct dlist
+{
+	node_t *head;
+};
+
+typedef struct dlist dlist_t;
+
+void insert_head(dlist_t*,int);
+void insert_tail(dlist_t*,int);
+void delete_node(dlist_t*,int);
+void display(dlist_t*);
+void init_list(dlist_t*);
+
+int main()
+{
+
+  int ch,x,pos;
+
+  dlist_t dl;
+
+  init_list(&dl);
+
+  while(1)
+  {
+    display(&dl);
+    printf("\n1..Insert Head\n");
+    printf("2..Insert Tail\n");
+    printf("3..Delete a Node..\n");
+    printf("4..Display\n");
+    printf("5..Exit\n");
+    scanf("%d",&ch);
+    switch(ch)
+    {
+     case 1:printf("Enter the number...");
+            scanf("%d",&x);
+            insert_head(&dl,x);
+            break;
+     case 2:printf("Enter the number...");
+            scanf("%d",&x);
+            insert_tail(&dl,x);
+            break;
+    case 3: printf("Enter the value of the node to be deleted...");
+            scanf("%d",&x);
+            delete_node(&dl,x);
+            break;
+
+     case 4:display(&dl);
+            break;
+     case 5:exit(0);
+   }
+ }
+}
+
+void init_list(dlist_t* ptr_list)
+{
+	ptr_list->head=NULL;
+}
+
+
+void delete_node(dlist_t *ptr_list,int x)
+ {
+  node_t *pres,*r;
+
+  pres=ptr_list->head;//copy of the first node
+
+ //move till you find the node
+ //or you reach the last node
+  while((pres->next!=ptr_list->head)&&(pres->data!=x))
+        pres=pres->next;
+
+  if(pres->data==x)//node found
+  {
+      if(pres->next==pres)//only one node
+        ptr_list->head=NULL; // make head NULL
+      else
+        {
+	pres->prev->next=pres->next;
+	pres->next->prev=pres->prev;
+                if(pres==ptr_list->head) //first node
+                     ptr_list->head=pres->next; //make head point to next node
+
+
+        }
+       free(pres);
+   }
+   else
+     printf("Node not found..\n");
+ }
+
+ void insert_head(dlist_t *ptr_list,int x)
+ {
+    node_t *temp,*pres;
+
+    temp=(struct node*)malloc(sizeof(struct node));
+    temp->data=x;
+    temp->next=temp->prev=temp;
+
+     pres=ptr_list->head;
+    if(pres==NULL)
+      ptr_list->head=temp;
+    else
+     {
+	   pres->prev->next=temp;
+	   temp->prev=pres->prev;
+        temp->next=pres;
+        pres->prev=temp;
+	    ptr_list->head=temp;
+     }
+  }
+
+
+
+
+void display(dlist_t *ptr_list)
+{
+   node_t *pres, *q;
+
+   pres=ptr_list->head;
+  if(pres==NULL)
+   printf("\nEmpty list..\n");
+ else
+  {
+  q=pres;
+   while(q->next!=pres)
+   {
+      printf("%d<->",q->data);
+      q=q->next;
+   }
+  printf("%d< ->",q->data);//last node
+  }
+}
+
+
+  void insert_tail(dlist_t* ptr_list,int x)
+ {
+    node_t *temp,*pres;
+
+    temp=(struct node*)malloc(sizeof(struct node));
+    temp->data=x;
+    temp->next=temp->prev=temp;
+
+    pres=ptr_list->head;
+
+    if(pres==NULL)
+      ptr_list->head=temp;
+    else
+     {
+	pres->prev->next=temp;
+	temp->prev=pres->prev;
+	temp->next=pres;
+	pres->prev=temp;
+    }
+  }
