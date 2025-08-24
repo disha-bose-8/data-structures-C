@@ -43,6 +43,10 @@ void delete_duplicates(LIST *ptr);
 void delete_duplicates_unsorted(LIST *ptr);
 void delete_reverse(LIST *ptr);
 void check_order(LIST *ptr);
+void insert_after(LIST *ptr, int value, int data);
+void insert_before(LIST *ptr, int value, int data);
+void delete_after(LIST *ptr, int value);
+void delete_before(LIST *ptr, int value);
 
 int main()
 {
@@ -76,7 +80,9 @@ int main()
     	printf("21..Check order\n");
     	printf("22. Insert after a given value\n");
     	printf("23. Insert before a given value\n");
-    	printf("22..Exit\n");
+    	printf("24. Delete after a given value\n");
+    	printf("25. Delete before a given value\n");
+    	printf("26..Exit\n");
         scanf("%d", &ch);
 
         switch (ch)
@@ -187,7 +193,7 @@ int main()
         	scanf("%d", &value);
         	printf("Enter data to insert: ");
         	scanf("%d", &data);
-        	insert_after(&list, value, data);
+        	insert_after(&l, value, data);
         	break;
         }
 
@@ -197,12 +203,27 @@ int main()
         	scanf("%d", &value);
         	printf("Enter data to insert: ");
         	scanf("%d", &data);
-        	insert_before(&list, value, data);
+        	insert_before(&l, value, data);
         	break;
         }
 
+        case 24: {
+	        int value;
+	        printf("Enter the value after which to delete: ");
+	        scanf("%d", &value);
+	        delete_after(&l, value);
+	        break;
+        }
 
-        case 24:
+        case 25: {
+	        int value;
+	        printf("Enter the value before which to delete: ");
+	        scanf("%d", &value);
+	        delete_before(&l, value);
+	        break;
+        }
+
+        case 26:
         	printf("Exiting program.\n");
 			exit(0);
         default:
@@ -775,5 +796,66 @@ void insert_before(LIST *ptr, int value, int data) {
 	cur->link = temp;
 }
 
+void delete_after(LIST *ptr, int value) {
+	if (ptr->head == NULL) {
+		printf("\nList is empty.\n");
+		return;
+	}
 
+	NODE *cur = ptr->head;
+	while (cur != NULL && cur->data != value) {
+		cur = cur->link;
+	}
 
+	if (cur == NULL) {
+		printf("\nValue %d not found.\n", value);
+		return;
+	}
+
+	if (cur->link == NULL) {
+		printf("\nNo node exists after %d.\n", value);
+		return;
+	}
+
+	NODE *temp = cur->link;
+	cur->link = temp->link;
+	printf("\nDeleted node with data %d after %d.\n", temp->data, value);
+	free(temp);
+}
+
+void delete_before(LIST *ptr, int value) {
+	if (ptr->head == NULL || ptr->head->link == NULL) {
+		printf("\nList is too short.\n");
+		return;
+	}
+
+	// case: delete head before value
+	if (ptr->head->link->data == value) {
+		NODE *temp = ptr->head;
+		ptr->head = ptr->head->link;
+		printf("\nDeleted node with data %d before %d.\n", temp->data, value);
+		free(temp);
+		return;
+	}
+
+	NODE *prev = NULL, *cur = ptr->head;
+
+	while (cur->link != NULL && cur->link->data != value) {
+		prev = cur;
+		cur = cur->link;
+	}
+
+	if (cur->link == NULL) {
+		printf("\nValue %d not found.\n", value);
+		return;
+	}
+
+	if (prev == NULL) {
+		printf("\nNo node exists before %d.\n", value);
+		return;
+	}
+
+	prev->link = cur->link;
+	printf("\nDeleted node with data %d before %d.\n", cur->data, value);
+	free(cur);
+}
