@@ -15,15 +15,15 @@ void delete_rear(LIST *ptr);
 void delete_pos(LIST *ptr, int pos);
 void delete_node(LIST *ptr, int data);
 void delete_alternate(LIST *ptr);
-void delete_all(LIST *ptr);           // Free entire list
-void delete_duplicates(LIST *ptr);    // If duplicates exist
+void delete_all(LIST *ptr);
+void delete_duplicates(LIST *ptr);
 
 // Ordered Insertion
-void orderlist(LIST *ptr, int ele);     // ascending insert
-void orderlistdes(LIST *ptr, int ele);  // descending insert
+void orderlist(LIST *ptr, int ele);
+void orderlistdes(LIST *ptr, int ele);
 
 // Search
-void search(LIST *ptr, int ele);        // basic search
+void search(LIST *ptr, int ele);
 void search_all(LIST *ptr, int ele);    // find all positions
 
 // Reverse / Print
