@@ -30,6 +30,9 @@ void delete_pos(DLIST *, int);
 void insert_pos(DLIST *, int, int);
 void insert_after(DLIST *, int, int);
 void insert_before(DLIST *, int, int);
+void delete_after(DLIST *, int);
+void delete_before(DLIST *, int);
+void display_reverse(DLIST *ptr);
 
 int main()
 {
@@ -43,14 +46,17 @@ int main()
         printf("1..insert_head\n");
         printf("2..insert_tail\n");
         printf("3..Display\n");
-        printf("4.delete first node\n");
-        printf("5. Delete Last Node..\n");
-        printf("6 .Delete a node given value\n");
-        printf("7.Delete at a position\n");
-        printf("8.Insert at a Given Position\n");
-        printf("9. Insert after given value..\n");
-        printf("10. Insert before given value..\n");
-        printf("11.Exit\n");
+        printf("4..delete first node\n");
+        printf("5..Delete Last Node\n");
+        printf("6..Delete a node given value\n");
+        printf("7..Delete at a position\n");
+        printf("8..Insert at a Given Position\n");
+        printf("9..Insert after given value\n");
+        printf("10..Insert before given value\n");
+        printf("11..Delete before given value\n");
+        printf("12..Delete after given value\n");
+        printf("13..Display in Reverse Order\n");
+        printf("14..Exit\n");
 
         scanf("%d", &ch);
         switch (ch)
@@ -98,6 +104,19 @@ int main()
                    insert_before(&l,value,data);
                    break;
         case 11:
+            printf("\nEnter the value: ");
+            scanf("%d", &value);
+            delete_before(&l, value);
+            break;
+        case 12:
+            printf("\nEnter the value: ");
+            scanf("%d", &value);
+            delete_after(&l, value);
+            break;
+        case 13:
+            display_reverse(&l);
+            break;
+        case 14:
             exit(0);
         }
     }
@@ -106,6 +125,27 @@ int main()
 void init_list(DLIST *ptr)
 {
     ptr->head = NULL; //pointer which points to first ele of dlist
+}
+
+// Print the list in reverse order
+void display_reverse(DLIST *ptr) {
+    NODE *cur = ptr->head;
+
+    if (cur == NULL) {
+        printf("\nEmpty List..\n");
+        return;
+    }
+
+    // move to last node
+    while (cur->rlink != NULL)
+        cur = cur->rlink;
+
+    // traverse backward
+    while (cur != NULL) {
+        printf("%d<->", cur->data);
+        cur = cur->llink;
+    }
+    printf("\n");
 }
 
 void insert_head(DLIST *ptr, int data) //insert at front
@@ -228,6 +268,64 @@ void insert_tail(DLIST *ptr, int data)
         cur->rlink = temp;
         temp->llink = cur;
     }
+}
+
+// Delete the node before a given value
+void delete_before(DLIST *ptr, int value) {
+    NODE *cur = ptr->head;
+
+    // find the node with the given value
+    while (cur != NULL && cur->data != value)
+        cur = cur->rlink;
+
+    if (cur == NULL) {
+        printf("\nValue %d not found.\n", value);
+        return;
+    }
+
+    if (cur->llink == NULL) { // no node before
+        printf("\nNo node exists before %d\n", value);
+        return;
+    }
+
+    NODE *del = cur->llink;
+
+    if (del->llink != NULL)
+        del->llink->rlink = cur;
+    else
+        ptr->head = cur; // deleted node was head
+
+    cur->llink = del->llink;
+    free(del);
+    printf("\nDeleted node before %d\n", value);
+}
+
+// Delete the node after a given value
+void delete_after(DLIST *ptr, int value) {
+    NODE *cur = ptr->head;
+
+    // find the node with the given value
+    while (cur != NULL && cur->data != value)
+        cur = cur->rlink;
+
+    if (cur == NULL) {
+        printf("\nValue %d not found.\n", value);
+        return;
+    }
+
+    if (cur->rlink == NULL) { // no node after
+        printf("\nNo node exists after %d\n", value);
+        return;
+    }
+
+    NODE *del = cur->rlink;
+
+    cur->rlink = del->rlink;
+    if (del->rlink != NULL)
+        del->rlink->llink = cur;
+
+    free(del);
+    printf("\nDeleted node after %d\n", value);
 }
 
 void delete_first(DLIST *ptr)
