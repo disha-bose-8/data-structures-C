@@ -73,9 +73,12 @@ int main()
     	printf("18..Delete duplicates (sorted list only)\n");
     	printf("19..Delete duplicates (unsorted)\n");
     	printf("20..Delete reverse order\n");
-    	printf("21..Check order");
+    	printf("21..Check order\n");
+    	printf("22. Insert after a given value\n");
+    	printf("23. Insert before a given value\n");
     	printf("22..Exit\n");
         scanf("%d", &ch);
+
         switch (ch)
         {
         case 1:
@@ -178,7 +181,28 @@ int main()
         	printf("checking order\n");
         	break;
 
-        case 22:
+        case 22: {
+        	int value, data;
+        	printf("Enter the value after which to insert: ");
+        	scanf("%d", &value);
+        	printf("Enter data to insert: ");
+        	scanf("%d", &data);
+        	insert_after(&list, value, data);
+        	break;
+        }
+
+        case 23: {
+        	int value, data;
+        	printf("Enter the value before which to insert: ");
+        	scanf("%d", &value);
+        	printf("Enter data to insert: ");
+        	scanf("%d", &data);
+        	insert_before(&list, value, data);
+        	break;
+        }
+
+
+        case 24:
         	printf("Exiting program.\n");
 			exit(0);
         default:
@@ -700,5 +724,56 @@ void delete_duplicates_unsorted(LIST *ptr) {
 		cur = cur->link;
 	}
 }
+
+void insert_after(LIST *ptr, int value, int data) {
+	NODE *cur = ptr->head;
+
+	// search for the value
+	while (cur != NULL && cur->data != value)
+		cur = cur->link;
+
+	if (cur == NULL) {
+		printf("\nValue %d not found.\n", value);
+		return;
+	}
+
+	NODE *temp = (NODE *)malloc(sizeof(NODE));
+	temp->data = data;
+	temp->link = cur->link;
+	cur->link = temp;
+}
+
+void insert_before(LIST *ptr, int value, int data) {
+	// empty list
+	if (ptr->head == NULL) {
+		printf("\nList is empty.\n");
+		return;
+	}
+
+	// if we insert before the head node
+	if (ptr->head->data == value) {
+		NODE *temp = (NODE *)malloc(sizeof(NODE));
+		temp->data = data;
+		temp->link = ptr->head;
+		ptr->head = temp;
+		return;
+	}
+
+	NODE *cur = ptr->head;
+	// search for node before the target
+	while (cur->link != NULL && cur->link->data != value)
+		cur = cur->link;
+
+	if (cur->link == NULL) {
+		printf("\nValue %d not found.\n", value);
+		return;
+	}
+
+	NODE *temp = (NODE *)malloc(sizeof(NODE));
+	temp->data = data;
+	temp->link = cur->link;
+	cur->link = temp;
+}
+
 
 
