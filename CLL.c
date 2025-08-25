@@ -2,6 +2,7 @@
 // Created by disha on 24-08-2025.
 //
 //program to implement circular singly linked list
+//pointer points to the last node
 #include<stdio.h>
 #include<stdlib.h>
 struct node
