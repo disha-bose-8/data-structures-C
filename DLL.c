@@ -32,8 +32,10 @@ void insert_after(DLIST *, int, int);
 void insert_before(DLIST *, int, int);
 void delete_after(DLIST *, int);
 void delete_before(DLIST *, int);
-void display_reverse(DLIST *ptr);
-void count(DLIST *ptr);
+void display_reverse(DLIST *);
+void count(DLIST *);
+void search(DLIST *, int);
+void delete_alt(DLIST *);
 
 int main()
 {
@@ -58,7 +60,9 @@ int main()
         printf("12..Delete after given value\n");
         printf("13..Display in Reverse Order\n");
         printf("14..Count no of nodes\n");
-        printf("15..Exit\n");
+        printf("15..Search for an element\n");
+        printf("16..Delete alternate nodes\n");
+        printf("17..Exit\n");
 
         scanf("%d", &ch);
         switch (ch)
@@ -119,18 +123,70 @@ int main()
             display_reverse(&l);
             break;
 
-            case 14:
-                printf("Count of nodes\n");
-                count(&l);
-            break;
+        case 14:
+            printf("Count of nodes\n");
+            count(&l);
+        break;
+
         case 15:
+            printf("\nEnter the element to be searched");
+            scanf("%d", &value);
+            search(&l, value);
+        break;
+
+        case 16:
+            delete_alt(&l);
+        break;
+
+        case 17:
             exit(0);
         }
     }
 }
 
+void delete_alt(DLIST *ptr) {
+    if (ptr->head == NULL) {
+        printf("The list is empty\n");
+        return;
+    }
+
+    NODE *cur = ptr->head;  // start from head
+    while (cur != NULL && cur->rlink != NULL) {
+        NODE *temp = cur->rlink;       // node to delete (next one)
+        cur->rlink = temp->rlink;      // bypass deleted node
+        if (temp->rlink != NULL) {
+            temp->rlink->llink = cur;  // fix backward link
+        }
+        free(temp);                    // free the alternate node
+        cur = cur->rlink;              // move to the next surviving node
+    }
+}
+
+void search(DLIST *ptr,int ele) {
+    int i=1;
+    int found = 0;
+
+    if (ptr->head == NULL) {
+        printf("The list is empty\n");
+        return;
+    }
+    else {
+        NODE *cur = ptr->head;
+        while (cur != NULL) {
+            if (cur->data == ele) {
+                printf("The element is in pos %d\n", i);
+                found = 1;
+            }
+            cur = cur->rlink;
+            i++;
+        }
+    }
+    if (!found)
+        printf("The element is not in the list\n");
+}
+
 void count(DLIST *ptr) {
-    int count = 0;
+    int count = 1;
 
     if (ptr->head==NULL) {
         printf("Empty List\n");
