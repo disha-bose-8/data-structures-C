@@ -142,6 +142,38 @@ void insertpos(NODE *ptr, int pos, int data) {
   temp->link = cur;
 }
 
+void deletepos(NODE *ptr, int pos) {
+  if (ptr->link == ptr) {  // empty list
+    printf("List is empty, nothing to delete.\n");
+    return;
+  }
+  if (pos <= 0) {
+    printf("Invalid position!\n");
+    return;
+  }
+
+  NODE *cur = ptr->link;
+  NODE *prev = ptr;  // start at dummy head
+  int i = 1;
+
+  // Traverse to the node at position pos
+  while (cur != ptr && i < pos) {
+    prev = cur;
+    cur = cur->link;
+    i++;
+  }
+
+  if (cur == ptr) {  // position out of bounds
+    printf("Position %d does not exist.\n", pos);
+    return;
+  }
+
+  // Unlink and delete
+  prev->link = cur->link;
+  free(cur);
+  printf("Node at position %d deleted successfully.\n", pos);
+}
+
 
 int main() {
   int ch, data,pos;
@@ -158,7 +190,8 @@ int main() {
     printf("6. Delete alternate nodes\n");
     printf("7. Count nodes\n");
     printf("8. Insert at pos\n");
-    printf("9. Exit\n");
+    printf("9. Delete at pos\n");
+    printf("10. Exit\n");
     printf("Enter choice: \n");
     scanf("%d", &ch);
 
@@ -189,13 +222,18 @@ int main() {
         count(head);
       break;
       case 8:
-        printf("Enter position: ");
+        printf("Enter position: \n");
         scanf("%d", &pos);
         printf("Enter data: ");
         scanf("%d", &data);
         insertpos(head, pos, data);
       break;
       case 9:
+        printf("Enter position: \n");
+        scanf("%d", &pos);
+        deletepos(head, pos);
+      break;
+      case 10:
         exit(0);
       default:
         printf("Invalid choice!\n");
