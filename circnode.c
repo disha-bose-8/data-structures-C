@@ -15,7 +15,7 @@ NODE *createNode()
   return temp;
   }
 
-void insertfront(NODE *ptr,int data){
+void insertFront(NODE *ptr,int data){
   NODE *temp=createNode();
   temp->data=data;
   NODE *first=ptr->link; //address of first node stores in first
@@ -109,8 +109,42 @@ void count(NODE *ptr) {
   printf("The number of nodes in the list is %d\n",count);
 }
 
+void insertpos(NODE *ptr, int pos, int data) {
+  if (pos <= 0) {
+    printf("Invalid position!\n");
+    return;
+  }
+
+  NODE *temp = createNode();
+  temp->data = data;
+
+  // Insert at position 1 (front)
+  if (pos == 1) {
+    NODE *first = ptr->link;
+    ptr->link = temp;
+    temp->link = first;
+    return;
+  }
+
+  int i = 1;
+  NODE *cur = ptr->link;
+  NODE *prev = ptr;  // start prev at dummy head
+
+  // Traverse to the position
+  while (cur != ptr && i < pos) {
+    prev = cur;
+    cur = cur->link;
+    i++;
+  }
+
+  // Insert at the found position
+  prev->link = temp;
+  temp->link = cur;
+}
+
+
 int main() {
-  int ch, data;
+  int ch, data,pos;
   NODE *head = createNode();  // create dummy head
   head->link = head;          // initially points to itself (empty list)
 
@@ -123,7 +157,8 @@ int main() {
     printf("5. Display\n");
     printf("6. Delete alternate nodes\n");
     printf("7. Count nodes\n");
-    printf("8. Exit\n");
+    printf("8. Insert at pos\n");
+    printf("9. Exit\n");
     printf("Enter choice: \n");
     scanf("%d", &ch);
 
@@ -131,7 +166,7 @@ int main() {
       case 1:
         printf("Enter data: \n");
       scanf("%d", &data);
-      insertfront(head, data);
+      insertFront(head, data);
       break;
       case 2:
         printf("Enter data: \n");
@@ -154,6 +189,13 @@ int main() {
         count(head);
       break;
       case 8:
+        printf("Enter position: ");
+        scanf("%d", &pos);
+        printf("Enter data: ");
+        scanf("%d", &data);
+        insertpos(head, pos, data);
+      break;
+      case 9:
         exit(0);
       default:
         printf("Invalid choice!\n");
