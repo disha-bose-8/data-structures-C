@@ -47,25 +47,28 @@ void insert_after(LIST *ptr, int value, int data);
 void insert_before(LIST *ptr, int value, int data);
 void delete_after(LIST *ptr, int value);
 void delete_before(LIST *ptr, int value);
+void sum(LIST *ptr);
+void search_all(LIST *ptr, int ele);
 
 int main()
 {
     LIST l;
     init_list(&l);
     int n, ch, pos;
+
     while (1)
     {
-        printf("\n");
-        display(&l);
-        printf("\n1..Insert at head\n");
-        printf("2..Insert at end\n");
-        printf("3..Display\n");
-        printf("4..Insert at a given position\n");
-        printf("5..Count number of nodes (recursion)\n");
-        printf("6..Delete node by value\n");
-        printf("7..Delete node at a given position\n");
-        printf("8..Delete alternate nodes\n");
-        printf("9..Print reverse order\n");
+    	printf("\n");
+    	display(&l);
+    	printf("\n1..Insert at head\n");
+    	printf("2..Insert at end\n");
+    	printf("3..Display\n");
+    	printf("4..Insert at a given position\n");
+    	printf("5..Count number of nodes (recursion)\n");
+    	printf("6..Delete node by value\n");
+    	printf("7..Delete node at a given position\n");
+    	printf("8..Delete alternate nodes\n");
+    	printf("9..Print reverse order\n");
     	printf("10..Delete at rear\n");
     	printf("11..Delete at front\n");
     	printf("12..Insert in sorted order (ascending)\n");
@@ -78,13 +81,14 @@ int main()
     	printf("19..Delete duplicates (unsorted)\n");
     	printf("20..Delete reverse order\n");
     	printf("21..Check order\n");
-    	printf("22. Insert after a given value\n");
-    	printf("23. Insert before a given value\n");
-    	printf("24. Delete after a given value\n");
-    	printf("25. Delete before a given value\n");
-    	printf("26..Exit\n");
-        scanf("%d", &ch);
-
+    	printf("22..Insert after a given value\n");
+    	printf("23..Insert before a given value\n");
+    	printf("24..Delete after a given value\n");
+    	printf("25..Delete before a given value\n");
+    	printf("26..Sum of all nodes\n");
+    	printf("27..Search for all pos\n");
+    	printf("28..Exit\n");
+    	scanf("%d", &ch);
         switch (ch)
         {
         case 1:
@@ -223,13 +227,64 @@ int main()
 	        break;
         }
 
-        case 26:
+        case 26: {
+	        sum(&l);
+        	break;
+        }
+
+        case 27:
+        	printf("Enter the element to search: ");
+        	scanf("%d", &n);
+        	search_all(&l, n);
+        break;
+
+        case 28:
         	printf("Exiting program.\n");
 			exit(0);
         default:
             printf("Invalid choice!\n");
         }
     }
+}
+
+void search_all(LIST *ptr, int ele) {
+	if (ptr->head == NULL) {   // check if list is empty
+		printf("List is empty.\n");
+		return;
+	}
+
+	NODE *cur = ptr->head;     // start from the first actual node
+	int pos = 1;                      // position counter
+	int found = 0;                     // flag if element exists
+
+	while (cur != NULL) {             // traverse entire list
+		if (cur->data == ele) {
+			printf("Element %d found at position %d\n", ele, pos);
+			found = 1;
+		}
+		cur = cur->link;              // move to next node
+		pos++;
+	}
+
+	if (!found) {
+		printf("Element %d not found in the list.\n", ele);
+	}
+}
+
+
+
+void sum(LIST *ptr) {
+	int sum=0;
+	if (ptr == NULL) {
+		printf("Empty list.\n");
+		return;
+	}
+	NODE *cur=ptr->head;
+	while (cur != NULL) {
+		sum += cur->data;
+		cur = cur->link;
+	}
+	printf("Sum of all nodes = %d\n", sum);
 }
 
 void sortAscending(LIST *ptr) {
