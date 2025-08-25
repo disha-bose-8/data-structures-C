@@ -24,7 +24,7 @@ void orderlistdes(LIST *ptr, int ele);
 
 // Search
 void search(LIST *ptr, int ele);
-void search_all(LIST *ptr, int ele);    // find all positions
+void search_all(LIST *ptr, int ele);
 
 // Reverse / Print
 void reverse(LIST *ptr);

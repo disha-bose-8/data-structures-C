@@ -33,6 +33,7 @@ void insert_before(DLIST *, int, int);
 void delete_after(DLIST *, int);
 void delete_before(DLIST *, int);
 void display_reverse(DLIST *ptr);
+void count(DLIST *ptr);
 
 int main()
 {
@@ -56,7 +57,8 @@ int main()
         printf("11..Delete before given value\n");
         printf("12..Delete after given value\n");
         printf("13..Display in Reverse Order\n");
-        printf("14..Exit\n");
+        printf("14..Count no of nodes\n");
+        printf("15..Exit\n");
 
         scanf("%d", &ch);
         switch (ch)
@@ -116,9 +118,31 @@ int main()
         case 13:
             display_reverse(&l);
             break;
-        case 14:
+
+            case 14:
+                printf("Count of nodes\n");
+                count(&l);
+            break;
+        case 15:
             exit(0);
         }
+    }
+}
+
+void count(DLIST *ptr) {
+    int count = 0;
+
+    if (ptr->head==NULL) {
+        printf("Empty List\n");
+        return;
+    }
+    else {
+        NODE *cur = ptr->head;
+        while (cur->rlink!=NULL) {
+            count++;
+            cur = cur->rlink;
+        }
+        printf("%d\n", count);
     }
 }
 
