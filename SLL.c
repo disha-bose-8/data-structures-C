@@ -900,7 +900,7 @@ void delete_before(LIST *ptr, int value) {
 		cur = cur->link;
 	}
 
-	if(cur->link == NULL) {
+	if (cur->link == NULL) {
 		printf("\nValue %d not found.\n", value);
 		return;
 	}
