@@ -36,6 +36,11 @@ void display_reverse(DLIST *);
 void count(DLIST *);
 void search(DLIST *, int);
 void delete_alt(DLIST *);
+void sum(DLIST *);
+void sortAscending(DLIST *);
+void sortDescending(DLIST *);
+void orderlist(DLIST *, int);
+void orderlistdes(DLIST *, int);
 
 int main()
 {
@@ -62,7 +67,12 @@ int main()
         printf("14..Count no of nodes\n");
         printf("15..Search for an element\n");
         printf("16..Delete alternate nodes\n");
-        printf("17..Exit\n");
+        printf("17..Sum of all nodes\n");
+        printf("18..Sort the list(ascending)\n");
+        printf("19..Sort the list(descending)\n");
+        printf("20..Insert in sorted list (ascending)\n");
+        printf("21..Insert in sorted list (descending)\n");
+        printf("22..Exit\n");
 
         scanf("%d", &ch);
         switch (ch)
@@ -139,10 +149,135 @@ int main()
         break;
 
         case 17:
+            printf("Sum of all nodes\n");
+        sum(&l);
+        break;
+
+        case 18:
+            sortAscending(&l);
+        break;
+
+        case 19:
+            sortDescending(&l);
+        break;
+
+        case 20:
+            orderlist(&l,data);
+        break;
+
+        case 21:
+            orderlistdes(&l,data);
+        break;
+
+        case 22:
             exit(0);
         }
     }
 }
+
+void orderlist(DLIST *ptr, int ele) { //insert in a sorted array (ascending)
+    NODE *temp = malloc(sizeof(NODE));
+    temp->data = ele;
+    temp->rlink = NULL;
+
+    // Case 1: Empty list or insert at front
+    if (ptr->head == NULL || ele < ptr->head->data) {
+        temp->rlink = ptr->head;
+        ptr->head = temp;
+        return;
+    }
+
+    NODE *cur = ptr->head;
+    NODE *prev = NULL;
+
+    // Traverse until we find correct position
+    while (cur != NULL && cur->data < ele) {
+        prev = cur;
+        cur = cur->rlink;
+    }
+
+    // Insert between prev and cur
+    prev->rlink = temp;
+    temp->rlink = cur;
+}
+
+void orderlistdes(DLIST *ptr, int ele) {
+    NODE *temp = malloc(sizeof(NODE));
+    temp->data = ele;
+    temp->rlink = NULL;
+
+    // Empty or insert at front (if ele > head->data)
+    if (ptr->head == NULL || ele > ptr->head->data) {
+        temp->rlink = ptr->head;
+        ptr->head = temp;
+        return;
+    }
+
+    NODE *cur = ptr->head;
+    NODE *prev = NULL;
+
+    while (cur != NULL && cur->data > ele) { // Notice '>' instead of '<'
+        prev = cur;
+        cur = cur->rlink;
+    }
+
+    prev->rlink = temp;
+    temp->rlink = cur;
+
+}
+
+void sum(DLIST *ptr) {
+    int sum = 0;
+    if (ptr->head == NULL) {
+        printf("Empty List\n");
+        return;
+    }
+    NODE *cur = ptr->head;
+    while (cur != NULL) {
+        sum = sum + cur->data;
+        cur = cur->rlink;
+    }
+    printf("%d\n", sum);
+}
+
+void sortAscending(DLIST *ptr) {
+    if (ptr->head == NULL || ptr->head->rlink == NULL) { // no node or only one node
+        return; // empty or single node
+    }
+
+    NODE *i, *j;
+    int temp;
+    for (i = ptr->head; i->rlink != NULL; i = i->rlink) {
+        for (j = i->rlink; j != NULL; j = j->rlink) {
+            if (i->data > j->data) {
+                // swap
+                temp = i->data;
+                i->data = j->data;
+                j->data = temp;
+            }
+        }
+    }
+}
+
+void sortDescending(DLIST *ptr) {
+    if (ptr->head == NULL || ptr->head->rlink == NULL) {
+        return;
+    }
+
+    NODE *i, *j;
+    int temp;
+    for (i = ptr->head; i->rlink != NULL; i = i->rlink) {
+        for (j = i->rlink; j != NULL; j = j->rlink) {
+            if (i->data < j->data) {
+                // swap
+                temp = i->data;
+                i->data = j->data;
+                j->data = temp;
+            }
+        }
+    }
+}
+
 
 void delete_alt(DLIST *ptr) {
     if (ptr->head == NULL) {

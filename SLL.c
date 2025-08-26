@@ -275,7 +275,7 @@ void search_all(LIST *ptr, int ele) {
 
 void sum(LIST *ptr) {
 	int sum=0;
-	if (ptr == NULL) {
+	if (ptr->head == NULL) {
 		printf("Empty list.\n");
 		return;
 	}
@@ -288,7 +288,7 @@ void sum(LIST *ptr) {
 }
 
 void sortAscending(LIST *ptr) {
-	if (ptr->head == NULL || ptr->head->link == NULL) {
+	if (ptr->head == NULL || ptr->head->link == NULL) { // no node or only one node
 		return; // empty or single node
 	}
 
@@ -485,7 +485,7 @@ void print_reverse_recur(NODE *cur)
 }
 */
 
-void delete_node(LIST *ptr, int data) //delete a particluar node by value
+void delete_node(LIST *ptr, int data) //delete a particular node by value
 {
     NODE *cur = ptr->head, *prev = NULL;
 
@@ -900,7 +900,7 @@ void delete_before(LIST *ptr, int value) {
 		cur = cur->link;
 	}
 
-	if (cur->link == NULL) {
+	if(cur->link == NULL) {
 		printf("\nValue %d not found.\n", value);
 		return;
 	}
