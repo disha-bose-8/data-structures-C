@@ -41,6 +41,7 @@ void sortAscending(DLIST *);
 void sortDescending(DLIST *);
 void orderlist(DLIST *, int);
 void orderlistdes(DLIST *, int);
+void display_alternate(DLIST *);
 
 int main()
 {
@@ -72,7 +73,8 @@ int main()
         printf("19..Sort the list(descending)\n");
         printf("20..Insert in sorted list (ascending)\n");
         printf("21..Insert in sorted list (descending)\n");
-        printf("22..Exit\n");
+        printf("22..Display in zig zag order\n");
+        printf("23..Exit\n");
 
         scanf("%d", &ch);
         switch (ch)
@@ -169,11 +171,44 @@ int main()
             orderlistdes(&l,data);
         break;
 
-        case 22:
+            case 22:
+                display_alternate(&l);
+            break;
+
+        case 23:
             exit(0);
         }
     }
 }
+
+void display_alternate(DLIST *ptr) {
+    if (ptr->head == NULL) {
+        printf("Empty List\n");
+        return;
+    }
+
+    NODE *start = ptr->head;
+    NODE *end = ptr->head;
+
+    while (end->rlink != NULL)
+        end = end->rlink;
+
+    printf("Alternate printing: ");
+
+    while (start != NULL && end != NULL && start != end && start->llink != end) {
+        printf("%d", start->data);
+        if (start != end)
+            printf("%d", end->data);
+        start = start->rlink;
+        end = end->llink;
+    }
+
+    if (start == end)
+        printf("%d", start->data);
+
+    printf("\n");
+}
+
 
 void orderlist(DLIST *ptr, int ele) { //insert in a sorted array (ascending)
     NODE *temp = malloc(sizeof(NODE));
