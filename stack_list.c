@@ -1,97 +1,96 @@
-//
-// Created by disha on 26-08-2025.
-//
-/* stack implementation using list*/
-#include<stdio.h>
-#include<stdlib.h>
-struct node
-{
+#include <stdio.h>
+#include <stdlib.h>
+
+// Define node structure
+typedef struct node {
     int data;
     struct node *next;
-};
-struct node *top=NULL;
-int choice, x;
-void push()
-{
-    struct node *newnode=(struct node*)malloc(sizeof(struct node));
-    if(newnode==NULL)
-    {
-        printf("Memory is not being allocated hence we can't insert an ele");
-    }
-    else
-    {
-        printf("Enter the element to be inserted\n");
-        scanf("%d", &x); /* x is element to be inserted*/
-        newnode->data=x;
-        newnode->next=top;
-        top=newnode;
-    }
-}
-void pop()
-{
-    if(top==NULL)
-    {
-        printf("Stack is underflow\n");
-    }
-    else
-    {
-        struct node *temp=top;
-        printf("The element to be deleted is %d\n", temp->data);
-        top=top->next;
-        free(temp);
-    }
-}
-void peek()
-{
-    if(top==NULL)
-    {
-        printf("Stack is empty\n");
-    }
-    else
-    {
-        printf("The top ele is %d\n", top->data);
-    }
+} NODE;
 
-}
-void display()
-{
-    if(top==NULL)
-    {
-        printf("Stack is empty\n");
+NODE *top = NULL;  // Stack top pointer
+
+// Function to push element onto stack
+void push(int ele) {
+    NODE *newNode = (NODE *)malloc(sizeof(NODE));
+    if (newNode == NULL) {
+        printf("Stack Overflow (Memory not available)\n");
+        return;
     }
-    else
-    {
-        struct node *temp=top;
-        printf("\nThe ele in the stack are\n");
-        while(temp!=NULL)
-        {
-            printf("\t%d\n", temp->data);
-            temp=temp->next;
-        }
-    }
+    newNode->data = ele;
+    newNode->next = top;
+    top = newNode;
+    printf("%d pushed to stack\n", ele);
 }
 
-int main()
-{
-    printf("Enter the stack operations \n1) Push() \n2) Pop() \n3) Peek() \n4) Display() \n");
-    do
-    {
-        printf("Enter the choice\n");
+// Function to pop element from stack
+int pop() {
+    if (top == NULL) {
+        printf("Stack Underflow\n");
+        return -1;
+    }
+    NODE *temp = top;
+    int val = temp->data;
+    top = top->next;
+    free(temp);
+    return val;
+}
+
+// Function to peek top element
+int peek() {
+    if (top == NULL) {
+        printf("Stack is empty\n");
+        return -1;
+    }
+    return top->data;
+}
+
+// Function to display stack
+void display() {
+    if (top == NULL) {
+        printf("Stack is empty\n");
+        return;
+    }
+    NODE *cur = top;
+    printf("Stack elements: ");
+    while (cur != NULL) {
+        printf("%d ", cur->data);
+        cur = cur->next;
+    }
+    printf("\n");
+}
+
+int main() {
+    int choice, ele;
+    while (1) {
+        printf("\n--- Stack Menu ---\n");
+        printf("1. Push\n2. Pop\n3. Peek\n4. Display\n5. Exit\n");
+        printf("Enter your choice: ");
         scanf("%d", &choice);
-        switch(choice)
-        {
-            case 1: push();
-            break;
-            case 2: pop();
-            break;
-            case 3: peek();
-            break;
-            case 4: display();
-            break;
-            default:printf("Invalid choice");
-            exit(1);
-        }
-    } while(choice!=5);
-    return 0;
 
+        switch (choice) {
+            case 1:
+                printf("Enter element to push: ");
+                scanf("%d", &ele);
+                push(ele);
+                break;
+            case 2:
+                ele = pop();
+                if (ele != -1)
+                    printf("Popped element: %d\n", ele);
+                break;
+            case 3:
+                ele = peek();
+                if (ele != -1)
+                    printf("Top element: %d\n", ele);
+                break;
+            case 4:
+                display();
+                break;
+            case 5:
+                exit(0);
+            default:
+                printf("Invalid choice!\n");
+        }
+    }
+    return 0;
 }
