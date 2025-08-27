@@ -9,10 +9,12 @@ typedef struct stack //structure for stack
 
 void push(STACK *ptr, int ele)
       {
-  if (ptr->top == MAX - 1) //stack is full no more elements can be put
+  if (ptr->top == MAX - 1) { //stack is full no more elements can be put
     printf("Stack Overflow\n");
+    return;
+  }
   else
-    ptr->a[++ptr->top] = ele;// increment and element keeps getting added at the top (initially top is -1)
+    ptr->a[++ptr->top] = ele; // increment and element keeps getting added at the top (initially top is -1)
   }
 
 void display(STACK *ptr)
