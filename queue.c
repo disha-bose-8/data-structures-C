@@ -4,18 +4,22 @@
 /* Queue is an ADT
 Queue follows FIFO - First in First Out
 Operations:
-1. enqueueueue
-2. dequeueueue
+1. enqueue
+2. dequeue
 3. isempty
-4. display the elements at the front and rear pointers
-front - used for dequeue(deletion)
-rear - used to enqueue(insertion)
-initially rear and front will be -1.
+4. isfull
+5. peekFront
+6. peekRear
+7. size
+8. clearQueue
+9. display
 */
-//implementing the Queue data structure using arrays
+
 #include<stdio.h>
 #include<stdlib.h>
 #define max 5
+
+// Function to insert element into queue
 void enqueue(int *q,int *rear,int ele)
 {
     if(*rear == max-1)
@@ -26,25 +30,14 @@ void enqueue(int *q,int *rear,int ele)
     {
         *rear = *rear + 1;
         q[*rear] = ele;
+        printf("%d inserted\n", ele);
     }
 }
-void display(int *q,int rear, int front)
-{
-    if(front>rear)
-    {
-        printf("Queue is empty\n");
-    }
-    else
-    {
-        for(int i=front;i<=rear;i++)
-        {
-            printf("%d ",q[i]);
-        }
-    }
-}
+
+// Function to delete element from queue
 int dequeue(int *q,int *front,int rear)
 {
-    if(*front>rear)
+    if(*front > rear)
         return 0;
     else
     {
@@ -54,34 +47,135 @@ int dequeue(int *q,int *front,int rear)
     }
 }
 
+// Display elements of queue
+void display(int *q,int rear, int front)
+{
+    if(front>rear)
+    {
+        printf("Queue is empty\n");
+    }
+    else
+    {
+        printf("Queue elements: ");
+        for(int i=front;i<=rear;i++)
+        {
+            printf("%d ",q[i]);
+        }
+        printf("\n");
+    }
+}
+
+// Check if queue is empty
+int isEmpty(int front, int rear) {
+    return (front > rear);
+}
+
+// Check if queue is full
+int isFull(int rear) {
+    return (rear == max - 1);
+}
+
+// Peek front element
+int peekFront(int *q, int front, int rear) {
+    if(front > rear) {
+        printf("Queue is empty\n");
+        return -1;
+    }
+    return q[front];
+}
+
+// Peek rear element
+int peekRear(int *q, int front, int rear) {
+    if(front > rear) {
+        printf("Queue is empty\n");
+        return -1;
+    }
+    return q[rear];
+}
+
+// Return size of queue
+int size(int front, int rear) {
+    if(front > rear) return 0;
+    return (rear - front + 1);
+}
+
+// Clear the queue
+void clearQueue(int *front, int *rear) {
+    *front = 0;
+    *rear = -1;
+    printf("Queue cleared\n");
+}
 
 int main()
 {
     int q[max];
-    int front = 0,rear = -1,ele,ch,x;
+    int front = 0, rear = -1, ele, ch, x;
+
     while(1)
     {
-        printf("\n1.enqueue\n2.dequeue\n3.Display\n4.exit\n");
+        printf("\n---- Queue Menu ----\n");
+        printf("1. Enqueue\n2. Dequeue\n3. Display\n4. Peek Front\n5. Peek Rear\n");
+        printf("6. Check Empty\n7. Check Full\n8. Size\n9. Clear Queue\n10. Exit\n");
+        printf("Enter choice: ");
         scanf("%d",&ch);
+
         switch(ch)
         {
-            case 1: printf("Enter the element:\n");
-            scanf("%d",&ele);
-            enqueue(q,&rear,ele);
-            break;
-            case 2: x = dequeue(q,&front,rear);
-            if(x == 0)
-            {
-                printf("Q is empty\n");
-            }
-            else
-            {
-                printf("The element that got deleted:%d\n",x);
-            }
-            case 3: display(q,rear,front);break;
-            case 4: exit(0);
+            case 1:
+                printf("Enter the element: ");
+                scanf("%d",&ele);
+                enqueue(q,&rear,ele);
+                break;
 
+            case 2:
+                x = dequeue(q,&front,rear);
+                if(x == 0)
+                    printf("Queue is empty\n");
+                else
+                    printf("The element that got deleted: %d\n",x);
+                break;
+
+            case 3:
+                display(q,rear,front);
+                break;
+
+            case 4:
+                x = peekFront(q,front,rear);
+                if(x != -1) printf("Front element: %d\n",x);
+                break;
+
+            case 5:
+                x = peekRear(q,front,rear);
+                if(x != -1) printf("Rear element: %d\n",x);
+                break;
+
+            case 6:
+                if(isEmpty(front,rear))
+                    printf("Queue is empty\n");
+                else
+                    printf("Queue is not empty\n");
+                break;
+
+            case 7:
+                if(isFull(rear))
+                    printf("Queue is full\n");
+                else
+                    printf("Queue is not full\n");
+                break;
+
+            case 8:
+                printf("Queue size: %d\n", size(front,rear));
+                break;
+
+            case 9:
+                clearQueue(&front,&rear);
+                break;
+
+            case 10:
+                exit(0);
+
+            default:
+                printf("Invalid choice\n");
         }
     }
-
 }
