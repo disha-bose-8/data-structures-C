@@ -12,7 +12,8 @@
 #define MAX 20
 
 // User-defined function to read a line of input
-void get(char str[]) {
+void get(char str[])
+{
     int i = 0;
     char ch;
     while ((ch = getchar()) != '\n' && ch != EOF) {

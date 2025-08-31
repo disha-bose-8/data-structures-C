@@ -11,7 +11,8 @@ char pop(char *stack, int *top);
 int precedence(char x);
 int isEmpty(int top);
 
-int main() {
+int main()
+{
     char infix[MAX], postfix[MAX]; // store input and output
     printf("Enter infix expression: ");
     scanf("%s", infix);
