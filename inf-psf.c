@@ -13,7 +13,7 @@ int isEmpty(int top);
 
 int main()
 {
-    char infix[MAX], postfix[MAX]; // store input and output
+    char infix[MAX], postfix[MAX]; // store input and output both arrays of length 20
     printf("Enter infix expression: ");
     scanf("%s", infix);
 
@@ -24,12 +24,21 @@ int main()
 }
 
 void convert_postfix(char *infix, char *postfix) {
-    char stack[MAX];
-    int top = -1; //initially stack empty
-    int i = 0, j = 0; //i → index for infix; j → index for postfix.
-    char x, token;
+    char stack[MAX]; // stack to hold operators and parentheses
+    int top = -1; // initially stack empty
+    int i = 0, j = 0; // i → index for infix; j → index for postfix.
 
-    // push a sentinel so we know when stack is empty during popping
+    /*
+    x holds characters popped from the stack, so it can be any operator (+, -, *, /, %, ^), parentheses ((, )), or the sentinel (#). It never holds digits or operands.  token reads each character from the infix expression. It can be operands (digits or letters), operators, or parentheses.  Functioning:
+    token is assigned each character from the infix input, one by one.
+    If token is an operand, it is directly added to the postfix output.
+    If token is an operator or parenthesis, it is processed using the stack.
+    x is used to temporarily hold and process characters popped from the stack, typically operators or parentheses, before adding them to the postfix output.
+     */
+
+    char x, token; // x is for popping from stack, token is for reading from infix
+
+    // push a sentinel so we know when stack is empty (all elements removed) during popping
     push(stack, &top, '#');
 
     while ((token = infix[i++]) != '\0') { //Reads each character from infix until '\0' (end of string)

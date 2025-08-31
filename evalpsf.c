@@ -57,7 +57,7 @@ int main() {
                 return 1;
             }
 
-            stack[++top] = res; // push result
+            stack[++top] = res; // push result back onto stack which again goes into switch with next digit
         }
     }
 
