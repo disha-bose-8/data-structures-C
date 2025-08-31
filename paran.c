@@ -3,6 +3,8 @@
 //
 #include <stdio.h>
 
+// C program to check for balanced parentheses in an expression
+
 int main()
     {
   int s[100];
