@@ -233,6 +233,7 @@ void orderlist(DLIST *ptr, int ele) { //insert in a sorted array (ascending)
 
     // Insert between prev and cur
     prev->rlink = temp;
+    temp->llink = prev;
     temp->rlink = cur;
 }
 
@@ -257,6 +258,7 @@ void orderlistdes(DLIST *ptr, int ele) {
     }
 
     prev->rlink = temp;
+    temp->llink = prev;
     temp->rlink = cur;
 
 }
@@ -314,7 +316,7 @@ void sortDescending(DLIST *ptr) {
 }
 
 
-void delete_alt(DLIST *ptr) {
+void delete_alt(DLIST *ptr) { // important
     if (ptr->head == NULL) {
         printf("The list is empty\n");
         return;
