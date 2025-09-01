@@ -1,15 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define MAX 5 //constant maximum size of the stack
-typedef struct stack //structure for stack
+
+#define MAX 10 // constant maximum size of the stack
+typedef struct stack // structure for stack
     {
-  int top; //keeps track of index of top element
+  int top; // keeps track of index of top element
   int a[MAX];
   } STACK;
 
 void push(STACK *ptr, int ele)
       {
-  if (ptr->top == MAX - 1) { //stack is full no more elements can be put
+  if (ptr->top == MAX - 1) { // stack is full no more elements can be put
     printf("Stack Overflow\n");
     return;
   }
