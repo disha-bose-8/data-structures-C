@@ -6,8 +6,8 @@ Queue follows FIFO - First in First Out
 Operations:
 1. enqueue
 2. dequeue
-3. isempty
-4. isfull
+3. is empty
+4. is full
 5. peekFront
 6. peekRear
 7. size
@@ -17,10 +17,10 @@ Operations:
 
 #include<stdio.h>
 #include<stdlib.h>
-#define max 5
+#define max 5 // Maximum size of queue
 
 // Function to insert element into queue
-void enqueue(int *q,int *rear,int ele)
+void enqueue(int *q,int *rear,int ele) // rear → pointer to the rear index
 {
     if(*rear == max-1)
     {
@@ -28,20 +28,20 @@ void enqueue(int *q,int *rear,int ele)
     }
     else
     {
-        *rear = *rear + 1;
+        *rear = *rear + 1; // If rear = -1 initially, after inserting 10, rear = 0, q[0] = 10
         q[*rear] = ele;
         printf("%d inserted\n", ele);
     }
 }
 
 // Function to delete element from queue
-int dequeue(int *q,int *front,int rear)
+int dequeue(int *q,int *front,int rear) // front → pointer to the front index
 {
-    if(*front > rear)
+    if(*front > rear) // Queue is empty
         return 0;
     else
     {
-        int x = q[*front];
+        int x = q[*front]; // The value of front is initially set to 0 in main
         *front = *front + 1;
         return x;
     }
