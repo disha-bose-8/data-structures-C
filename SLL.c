@@ -344,14 +344,14 @@ void search(LIST *ptr, int ele) {
 
 void init_list(LIST *ptr) //initialize ll
 {
-    ptr->head = NULL; //list is empty initially
+    ptr->head = NULL; //list is empty initially head pointer points to null
 }
 
 void insert_head(LIST *ptr, int data) //keep inserting at front
 {
     NODE *temp = (NODE *)malloc(sizeof(NODE)); //create node
     temp->data = data;
-    temp->link = ptr->head; /*
+    temp->link = ptr->head; /* (ptr->head contains only the adrres of first node so basically temp is pointing to first node)
 	ptr->head currently points to the first node of the list (or NULL if the list is empty).
     By doing this, the new node’s link points to the current first node.
     This effectively inserts the new node before the existing nodes.*/
@@ -405,7 +405,7 @@ void insert_pos(LIST *ptr, int data, int pos) //insert at particular position
     temp->data = data;
     temp->link = NULL;
 
-    if (pos == 1)
+    if (pos == 1) // basically insert at head
     {
         temp->link = ptr->head;
         ptr->head = temp;
@@ -451,7 +451,7 @@ int count_node(LIST *ptr)
 	return count;
 }
 
-/*
+/* recursive method
 int count_node_recur(NODE *cur)
 {
     if (cur == NULL)
@@ -467,15 +467,15 @@ void print_reverse(LIST *ptr)
 	NODE *cur = ptr->head;
 	NODE *next = NULL;
 	while (cur != NULL) {
-		next = cur->link;
-		cur->link = prev;
-		prev = cur;
-		cur = next;
+		next = cur->link; // node next to cur
+		cur->link = prev; // current node linked to previous node
+		prev = cur; // previous node becomes current node
+		cur = next; // current node becomes next
 	}
 	ptr->head = prev;
 }
 
-/*
+/* recursive method
 void print_reverse_recur(NODE *cur)
 {
     if (cur == NULL)
@@ -501,7 +501,7 @@ void delete_node(LIST *ptr, int data) //delete a particular node by value
         return;
     }
 
-    if (prev == NULL) // deleting first node
+    if (prev == NULL) // deleting first and only node
         ptr->head = cur->link;
     else
         prev->link = cur->link;
@@ -534,7 +534,7 @@ void delete_pos(LIST *ptr, int pos)
     }
 
     if (prev == NULL)
-        ptr->head = cur->link; // delete first node
+        ptr->head = cur->link; // delete first and only node
     else
         prev->link = cur->link;
 
@@ -547,8 +547,8 @@ void delete_front(LIST *ptr) {
 		return;
 	}
 
-	NODE *temp = ptr->head;   // store current head
-	ptr->head = ptr->head->link;  // move head to next node
+	NODE *temp = ptr->head;   // store address of first node (contained in ptr->head)
+	ptr->head = ptr->head->link;  // move head to next node (linked and stores address of next node)
 	free(temp);               // free memory of old head
 }
 
@@ -703,12 +703,12 @@ void delete_all(LIST *ptr) {
 	ptr->head = NULL;
 }
 
-void delete_duplicates(LIST *ptr) {
+void delete_duplicates(LIST *ptr) { // ordered list
 	NODE *cur = ptr->head;
 	while (cur && cur->link) {
 		if (cur->data == cur->link->data) {
 			NODE *dup = cur->link;
-			cur->link = dup->link;
+			cur->link = dup->link; //first dupicate gets removed
 			free(dup);
 		} else {
 			cur = cur->link;
@@ -830,7 +830,7 @@ void insert_before(LIST *ptr, int value, int data) {
 	if (ptr->head->data == value) {
 		NODE *temp = (NODE *)malloc(sizeof(NODE));
 		temp->data = data;
-		temp->link = ptr->head;
+		temp->link = ptr->head; // adress of first node
 		ptr->head = temp;
 		return;
 	}
