@@ -1,6 +1,8 @@
 //
 // Created by disha on 25-08-2025.
 //
+// Program to implement circular singly linked list (with a dummy head node)
+
 #include<stdio.h>
 #include<stdlib.h>
 typedef struct node
