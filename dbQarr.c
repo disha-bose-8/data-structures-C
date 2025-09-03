@@ -3,6 +3,7 @@
 //
 
 #include <stdio.h>
+#include <stdlib.h>
 #define MAX 5
 
 void insert_front(int *q, int *r, int *f, int ele)
@@ -24,7 +25,7 @@ void insert_front(int *q, int *r, int *f, int ele)
           }
         else if(*f == 0) // f at first position, need to shift elements to right (for 2nd element)
           {
-            *f = MAX - 1; // wrap around front
+            *f = MAX - 1; // wrap around front to last position
             q[*f] = ele;
             }
         else // normal case
@@ -119,8 +120,8 @@ int delete_front(int *q, int *f, int *r)
     }
     }
 
-int delete_front(int *q, int *f, int *r);
-{
+int delete_rear(int *q, int *r, int *f)
+    {
       if(*f == -1 && *r == -1) // empty condition
         {
           printf("Queue is empty\n");
@@ -144,57 +145,62 @@ int delete_front(int *q, int *f, int *r);
             else
             {
               x = q[*r];
-              (*r)--; // decrement rear
+              *r = (*r - 1 + MAX) % MAX; // circular decrement rear
 
             }
           return x;
     }
-}
+    }
 
 int main()
-    {
-  int q[MAX];
+{
+    int q[MAX];
     int f = -1, r = -1, ele, ch, x;
+
     while(1)
-      {
-      printf("1.insert at front\n2.insert at rear\n3.delete from front\n4.delete from rear\n5.display\n6.exit\n");
-      printf("Enter your choice: ");
-      scanf("%d", &ch);
-      switch(ch)
-      {
-        case 1:
-          printf("Enter element at front: \n");
-          scanf("%d", &ele);
-          insert_front(q, &r, &f, ele);
-          break;
+    {
+        printf("1.insert at front\n2.insert at rear\n3.delete from front\n4.delete from rear\n5.display\n6.exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &ch);
 
-        case 2:
-          printf("Enter element at rear: \n");
-          scanf("%d", &ele);
-          insert_rear(q, &r, &f, ele);
-          break;
+        switch(ch)
+        {
+            case 1:
+                printf("Enter element at front: ");
+                scanf("%d", &ele);
+                insert_front(q, &r, &f, ele);
+                break;
 
-        case 3:
-          void display(int *q, int f, int r);
-          break;
+            case 2:
+                printf("Enter element at rear: ");
+                scanf("%d", &ele);
+                insert_rear(q, &r, &f, ele);
+                break;
 
-        case 4:
-          // delete from rear function call
-          delete_rear(q, &r, &f);
-          break;
+            case 3:
+                x = delete_front(q, &f, &r);
+                if(x != 9999)
+                    printf("Deleted from front: %d\n", x);
+                break;
 
-        case 5:
-          delete_front(q, &f, &r);
-          break;
+            case 4:
+                x = delete_rear(q, &r, &f);
+                if(x != 9999)
+                    printf("Deleted from rear: %d\n", x);
+                break;
 
-        case 6:
-          exit(0);
-          break;
+            case 5:
+                display(q, f, r);
+                break;
 
-        default:
-          printf("Invalid choice\n");
-      }
-      printf("\n");
+            case 6:
+                exit(0);
+
+            default:
+                printf("Invalid choice\n");
+        }
+        printf("\n");
     }
+
     return 0;
 }
