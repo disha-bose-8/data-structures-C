@@ -17,6 +17,7 @@ Operations:
 
 #include<stdio.h>
 #include<stdlib.h>
+
 #define max 5 // Maximum size of queue
 
 // Function to insert element into queue
