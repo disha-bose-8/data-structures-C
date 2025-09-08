@@ -30,7 +30,7 @@ int dequeue(int *q, int *f, int r)
           // printf("Queue is empty\n");
           return 9999;
         }
-      int x = q[*f];
+      int x = q[*f]; 
       (*f)++; // increment front
       return x;
     }

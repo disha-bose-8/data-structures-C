@@ -6,15 +6,15 @@
 #include <stdlib.h>
 
 /*
-The first struct (`qnode`) defines a single node in the queue, holding an integer (`data`) and a pointer to the next node (`link`).
+The first struct (`node`) defines a single node in the queue, holding an integer (`data`) and a pointer to the next node (`link`).
 The second struct (`queue`) defines the queue itself, with pointers to the front and rear nodes.
-Connection: The `queue` struct uses `qnode` pointers to manage the linked list of nodes that make up the queue.
+Connection: The `queue` struct uses `node` pointers to manage the linked list of nodes that make up the queue.
  */
 
-typedef struct qnode // Defines a node structure for the queue
+typedef struct node // Defines a node structure for the queue
 {
     int data;
-    struct qnode *link;
+    struct node *link;
 } NODE;
 
 typedef struct queue // Defines the queue structure with front and rear pointers
