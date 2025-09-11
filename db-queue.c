@@ -9,7 +9,7 @@
 // Define the structure of a node in the doubly linked list
 struct node {
     int key;                 // Data stored in the node
-    struct node *next, *prev; // Pointers to the next and previous nodes
+    struct node *rlink, *llink; // Pointers to the rlink and llinkious nodes
 };
 
 typedef struct node NODE;    // Alias for struct node
@@ -89,14 +89,14 @@ void qinsert_head(DEQ *p, int x) {
     // Create a new node
     temp = (NODE *)malloc(sizeof(NODE));
     temp->key = x;
-    temp->next = temp->prev = NULL;  // Initialize the node's next and prev to NULL
+    temp->rlink = temp->llink = NULL;  // Initialize the node's rlink and llink to NULL
 
     // If deque is empty, set both front and rear to the new node
     if (p->front == NULL)
         p->front = p->rear = temp;
     else {
-        temp->next = p->front;  // Link the new node's next to the current front
-        p->front->prev = temp;  // Link the current front's prev to the new node
+        temp->rlink = p->front;  // Link the new node's rlink to the current front (p->front contains the address of the current front node)
+        p->front->llink = temp;  // Link the current front's llink to the new node
         p->front = temp;        // Update front to the new node
     }
 }
@@ -108,14 +108,14 @@ void qinsert_tail(DEQ *p, int x) {
     // Create a new node
     temp = (NODE *)malloc(sizeof(NODE));
     temp->key = x;
-    temp->next = temp->prev = NULL;  // Initialize the node's next and prev to NULL
+    temp->rlink = temp->llink = NULL;  // Initialize the node's rlink and llink to NULL
 
     // If deque is empty, set both front and rear to the new node
     if (p->front == NULL)
         p->front = p->rear = temp;
     else {
-        p->rear->next = temp;  // Link the current rear's next to the new node
-        temp->prev = p->rear;  // Link the new node's prev to the current rear
+        p->rear->rlink = temp;  // Link the current rear's rlink to the new node
+        temp->llink = p->rear;  // Link the new node's llink to the current rear
         p->rear = temp;        // Update rear to the new node
     }
 }
@@ -138,8 +138,8 @@ int qdelete_tail(DEQ *p) {
     if (p->front == p->rear)
         p->front = p->rear = NULL;
     else {
-        p->rear = pres->prev;  // Move the rear pointer to the previous node
-        p->rear->next = NULL;  // Update the new rear's next pointer
+        p->rear = pres->llink;  // Move the rear pointer to the llinkious node
+        p->rear->rlink = NULL;  // Update the new rear's rlink pointer
     }
     free(pres);  // Free the deleted node
     return key;  // Return the deleted value
@@ -163,8 +163,8 @@ int qdelete_head(DEQ *p) {
     if (p->front == p->rear)
         p->front = p->rear = NULL;
     else {
-        p->front = pres->next;  // Move the front pointer to the next node
-        p->front->prev = NULL;  // Update the new front's prev pointer
+        p->front = pres->rlink;  // Move the front pointer to the rlink node
+        p->front->llink = NULL;  // Update the new front's llink pointer
     }
     free(pres);  // Free the deleted node
     return key;  // Return the deleted value
@@ -183,7 +183,7 @@ void qdisplay(DEQ *p) {
         // Traverse the deque and print each node's key
         while (pres != p->rear) {
             printf("%d<->", pres->key);
-            pres = pres->next;
+            pres = pres->rlink;
         }
         printf("%d\n", pres->key);  // Print the last node
     }

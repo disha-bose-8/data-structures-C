@@ -1,6 +1,7 @@
 //
 // Created by disha on 01-09-2025.
 //
+//insertion expensive process
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -9,7 +10,7 @@
 struct node {
     int data;       // value of element
     int priority;   // priority of element (lower number = higher priority)
-    struct node* next;
+    struct node* link;
 };
 
 typedef struct node NODE;
@@ -19,7 +20,7 @@ NODE* createNode(int data, int priority) {
     NODE* temp = (NODE*)malloc(sizeof(NODE));
     temp->data = data;
     temp->priority = priority;
-    temp->next = NULL;
+    temp->link = NULL;
     return temp;
 }
 
@@ -29,18 +30,18 @@ void insert(NODE** head, int data, int priority) {
 
     // Case: empty list or new node has higher priority than head
     if (*head == NULL || (*head)->priority > priority) {
-        temp->next = *head;
+        temp->link = *head;
         *head = temp;
         return;
     }
 
     // Traverse to find correct position
     NODE* cur = *head;
-    while (cur->next != NULL && cur->next->priority <= priority)
-        cur = cur->next;
+    while (cur->link != NULL && cur->link->priority <= priority)
+        cur = cur->link;
 
-    temp->next = cur->next;
-    cur->next = temp;
+    temp->link = cur->link;
+    cur->link = temp;
 }
 
 // Delete node with highest priority (front)
@@ -52,7 +53,7 @@ int delete(NODE** head) {
 
     NODE* temp = *head;
     int val = temp->data;
-    *head = (*head)->next;
+    *head = (*head)->link;
     free(temp);
     return val;
 }
@@ -68,7 +69,7 @@ void display(NODE* head) {
     NODE* cur = head;
     while (cur != NULL) {
         printf("%d -> %d\n", cur->data, cur->priority);
-        cur = cur->next;
+        cur = cur->link;
     }
 }
 
