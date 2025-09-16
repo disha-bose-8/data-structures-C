@@ -38,7 +38,7 @@ void enqueue(int *q,int *rear,int ele) // rear → pointer to the rear index
 // Function to delete element from queue
 int dequeue(int *q,int *front,int rear) // front → pointer to the front index
 {
-    if(*front > rear) // Queue is empty
+    if(*front > rear) // Queue is empty (if even one element is present front will be ≤ rear)
         return 0;
     else
     {

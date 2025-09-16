@@ -57,17 +57,7 @@ void display(PQUEUE *ptr) {
     }
     printf("\n");
 }
-void display(NODE *ptr) {
-    if (ptr->link==NULL)
-        printf("list is empty\n");
-    else {
-        NODE *cur=ptr->link;
-        while (cur!=NULL) {
-            printf("%d\t",cur->data);
-            cur=cur->link;
-        }
-    }
-}
+
 
 int main() {
     PQUEUE *ptr = malloc(sizeof(PQUEUE));
@@ -75,7 +65,7 @@ int main() {
     int ch, ele, pri, x;
 
     while (1) {
-        printf("\n1. Enqueue\n2. Dequeue\n3. Display\n");
+        printf("\n1. Enqueue\n2. Dequeue\n3. Display\n4. Exit\n");
         printf("Enter the choice: ");
         scanf("%d", &ch);
 
@@ -99,6 +89,10 @@ int main() {
             case 3:
                 display(ptr);
                 break;
+
+            case 4:
+                printf("Exit\n");
+                exit(0);
 
             default:
                 printf("Invalid choice\n");

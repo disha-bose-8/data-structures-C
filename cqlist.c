@@ -2,109 +2,107 @@
 // Created by disha on 04-09-2025.
 //
 
-// implementation of circular queue using linked list
+// implementation of circular node  using linked list
 
-#include <stdio.h>
-#include <stdlib.h>
+#include<stdio.h>
+#include<stdlib.h>
 
-typedef struct node { // defines a node structure for the queue
+typedef struct node {
     int data;
-    struct node* link;
-} NODE;
+    struct node *link;
+}NODE;
 
-typedef struct queue // defines the queue structure with front and rear pointers
+typedef struct queue {
+    NODE *front,*rear;
+}CQUEUE;
+
+void enqueue(CQUEUE *ptr, int ele)
 {
-    NODE *front, *rear; // pointers to the front and rear of the queue
-} QUEUE;
-
-void enqueue(QUEUE *ptr, int ele) //insert at rear (weve to traverse to the end of the list to insert)
-{
-    NODE *temp = (NODE *)malloc(sizeof(NODE)); // allocate memory for a new node
-    temp->data = ele;
-    temp->link = NULL;
-
-    NODE *cur = ptr->rear; // start from rear
-    if(ptr->front == NULL && ptr->rear == NULL) // if queue is empty → both front and rear point to this first node (this is the first node added to queue)
+    NODE *temp=malloc(sizeof(NODE));
+    if(temp!=NULL)
     {
-        ptr->front = ptr->rear = temp;
-        return;
+        temp->data=ele;
     }
-    temp->link = ptr->front; // link new node to front to make it circular
-    ptr->rear->link=temp; // update rear to new node (make rear as temp)
+    if(ptr->front==NULL)
+    {
+        ptr->front=ptr->rear=temp;
+    }
 
+    /* making it circular
+    Suppose the queue initially contains: front → [10] → [20] → [30] → rear (which points back to front for circularity). now, enqueue 40:
+    temp->data = 40
+    temp->link = ptr->front; [40] → [10] (new node points to front)
+    ptr->rear->link = temp; [30] → [40] (old rear points to new node)
+    ptr->rear = temp; rear now points to [40]
+    Resulting structure: front → [10] → [20] → [30] → [40] → (loops back to [10]) rear → [40] rear->link → [10] */
+
+    temp->link=ptr->front;
+    ptr->rear->link=temp;
+    ptr->rear=temp;
 }
-
-void display(QUEUE *ptr) // display from front to rear (queue is first to last)
+void display(CQUEUE *ptr)
 {
-    if (ptr->front == NULL && ptr->rear == NULL)
-    {
-        printf("empty\n");
-    }
+    if(ptr->front==NULL)
+        printf("list is empty\n");
     else
     {
-        NODE *cur = ptr->front;
-        while (ptr->front != cur->link) // traverse till we reach back to front
+        NODE *cur=ptr->front;
+        while(cur!=ptr->rear)
         {
-            printf("%d\t", cur->data);
-            cur = cur->link;
+            printf("%d\t",cur->data);
+            cur=cur->link;
         }
-        printf("\n");
+        printf("%d\t",ptr->rear->data);
     }
 }
-
-int dequeue(QUEUE *ptr) // delete from front (we can directly access front)
+int dequeue(CQUEUE *ptr)
 {
     int x;
-    if (ptr->front == NULL && ptr->rear == NULL) // if queue is empty
+    if(ptr->front==NULL)
+        return(9999);
+    if(ptr->rear==ptr->front)
     {
-        printf("Queue underflow\n");
-        return 9999;
+        x=ptr->front->data;
+        free(ptr->front);
+        ptr->front=ptr->rear=NULL;
     }
-    NODE *temp = ptr->front; // store front node in temp
-    x = temp->data;          // get data to return
-    if (ptr->front == ptr->rear) // if only one element is  present
-        ptr->front = ptr->rear = NULL; // now queue will be empty
     else
-        ptr->front = ptr->front->link; // move front to next node
-
-    free(temp); // free memory of old front node
-    return x;   // return dequeued value
+    {
+        NODE *second=ptr->front->link;
+        x=ptr->front->data;
+        free(ptr->front);
+        ptr->front=second;
+        ptr->rear->link=ptr->front;
+    }
+    return(x);
 }
 
-int main() {
-    QUEUE *ptr = (QUEUE *)malloc(sizeof(QUEUE));
-    ptr->front = ptr->rear = NULL; // initialize front and rear to NULL
-    int choice, ele, x;
-
-    while (1) {
-        printf("1. Enqueue\n2. Dequeue\n3. Display\n4. Exit\n");
-        printf("Enter your choice: ");
-        scanf("%d", &choice);
-
-        switch (choice) {
+int main()
+{
+    CQUEUE *ptr=malloc(sizeof(CQUEUE));
+    ptr->front=ptr->rear=NULL;
+    int ele,x,ch;
+    while(1)
+    {
+        printf("1.Enqueue\n 2.Dequeue\n 3.display\n");
+        printf("Enter your choice");
+        scanf("%d",&ch);
+        switch(ch)
+        {
             case 1:
-                printf("Enter element to enqueue: ");
-                scanf("%d", &ele);
-                enqueue(&q, ele);
-                break;
-
-            case 2:
-                x = dequeue(&q);
-                if (x != 9999) // if queue was not empty
-                    printf("Dequeued element: %d\n", x);
-                break;
-
-            case 3:
-                display(&q);
-                break;
-
-            case 4:
-                exit(0);
-
-            default:
-                printf("Invalid choice. Please try again.\n");
+                printf("enter the Element\n");
+            scanf("%d",&ele);
+            enqueue(ptr,ele);
+            break;
+            case 2:x=dequeue(ptr);
+            if(x==9999)
+                printf("underflow\n");
+            else{
+                printf("deleted element is %d\n",x);
+            }
+            break;
+            case 3: display(ptr);
+            break;
         }
     }
-
-    return 0;
 }

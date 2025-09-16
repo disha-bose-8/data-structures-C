@@ -27,7 +27,7 @@ int isEmpty(int f) {
 The selected line checks if the circular queue is full.
 (f == 0 && r == MAX - 1)`: This means the front is at the start and rear is at the end, so the queue is full.
 (f == (r + 1) % MAX)`: This means the front is immediately after the rear in a circular manner, indicating the queue is full due to
-wrap-around.
+wrap-around (front and rear are adjacent in a circular way).
 If either condition is true, the queue cannot accept more elements.
  */
 
@@ -92,7 +92,7 @@ void display(int *q, int f, int r)
     while(1)
     {
         printf("%d ", q[i]);
-        if(i == r)
+        if(i == r) // like if its 4==4 then etc
             break;
         i = (i + 1) % MAX;
     }

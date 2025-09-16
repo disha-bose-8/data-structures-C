@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct node { // defines a node structure for the queue
+typedef struct node { // defines a node structure for the queue (for each element in the queue)
     int data;
     struct node* link;
 } NODE;
@@ -21,6 +21,8 @@ void enqueue(QUEUE *ptr, int ele) //insert at rear (weve to traverse to the end 
     temp->data = ele;
     temp->link = NULL;
 
+    //ptr->rear stores the address of the last node in the queue
+
     NODE *cur = ptr->rear; // start from rear
     if(ptr->front == NULL && ptr->rear == NULL) // if queue is empty → both front and rear point to this first node (this is the first node added to queue)
     {
@@ -29,7 +31,7 @@ void enqueue(QUEUE *ptr, int ele) //insert at rear (weve to traverse to the end 
     }
 
     cur->link = temp; // if queue not empty link the new node at the end of the queue and update rear
-    ptr->rear = temp; // update rear to new node (make rear as temp)
+    ptr->rear = temp; // update rear to new node (make rear as temp, ptr->rear now stores address of temp)
 
 }
 void display(QUEUE *ptr) // display from front to rear (queue is first to last)
@@ -69,7 +71,7 @@ int dequeue(QUEUE *ptr) // delete from front (we can directly access front)
       x=ptr->front->data;
       NODE *second=ptr->front->link;
       free(ptr->front);
-      ptr->front=second; // second node is made front
+      ptr->front=second; // second node is made front (ptr->front now stores address of second node)
     }
     return x; // return the dequeued value
 }
