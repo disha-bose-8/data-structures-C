@@ -5,7 +5,7 @@
 typedef struct stack // structure for stack
     {
   int top; // keeps track of index of top element
-  int a[MAX];
+  int a[MAX]; // array to hold stack elements
   } STACK;
 
 void push(STACK *ptr, int ele)

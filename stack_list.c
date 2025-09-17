@@ -7,31 +7,32 @@ typedef struct node {
     struct node *link;
 } NODE;
 
-NODE *top = NULL;  // Stack top pointer
+// initially stack is empty
+NODE *top = NULL;  // Stack top pointer top always points to the top of stack (most recently pushed element).
 
 // Function to push element onto stack
 void push(int ele) {
-    NODE *temp = (NODE *)malloc(sizeof(NODE));
+    NODE *temp = (NODE *)malloc(sizeof(NODE)); // create new node
     if (temp == NULL) {
         printf("Stack Overflow (Memory not available)\n");
         return;
     }
     temp->data = ele;
-    temp->link = top;
-    top = temp;
+    temp->link = top; // new node points to previous top (top contains adress of previous node)
+    top = temp; // top now points to new node
     printf("%d pushed to stack\n", ele);
 }
 
 // Function to pop element from stack
 int pop() {
-    if (top == NULL) {
+    if (top == NULL) { // nothing to pop
         printf("Stack Underflow\n");
         return 9999; // Indicate stack is empty
     }
-    NODE *temp = top;
-    int val = temp->data;
-    top = top->link;
-    free(temp);
+    NODE *temp = top; // temp stores node being popped (top contains its address)
+    int val = temp->data; // value to return
+    top = top->link; // top now points to next node
+    free(temp); // free popped node
     return val;
 }
 
