@@ -5,15 +5,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define size 20
+#define size 20 // Maximum number of nodes this tree can hold (since it’s array-based).
 
-typedef struct Btree
+typedef struct Btree // Array representation of Binary Tree
     {
-  int tree[size];
-  int lastindex;
+  int tree[size]; // array to hold tree elements
+  int lastindex; // index of the last element in the tree
     } Tree;
 
-void init (Tree *bt)
+void init (Tree *bt) // Initialize the binary tree
     {
   bt->lastindex = -1;
     }
@@ -25,24 +25,25 @@ void insert (Tree *bt, int data)
       printf ("Tree is full\n");
       return;
     }
-  bt->lastindex++;
-  bt->tree[bt->lastindex] = data;
+  bt->lastindex++; // increment lastindex
+  bt->tree[bt->lastindex] = data; // insert data at lastindex
     }
 
-void inorder_traversal (Tree *bt, int index)
+void inorder_traversal (Tree *bt, int index) // Inorder → Left → Root → Right
     {
-    if (index <= bt->lastindex)
+    if (index <= bt->lastindex) // index: the current node’s position in the array representation of the tree.
       {
       int left = 2 * index + 1;
       int right = 2 * index + 2;
-      if(left <= bt->lastindex)
+      if(left <= bt->lastindex) // check if left child exists (visit left subtree)
         {
-        inorder_traversal (bt, left); // recursion call next set of code wont be executed until this call is completed goes back to start
+        // left becomes the current index for the next recursive call
+        inorder_traversal (bt, left); // recursion call next set of code won't be executed until this call is completed goes back to start
         }
       printf ("%d ", bt->tree[index]);
       if(right <= bt->lastindex)
         {
-        inorder_traversal (bt, right);
+        inorder_traversal (bt, right); // visit right subtree
         }
 
       /*
@@ -55,39 +56,39 @@ void inorder_traversal (Tree *bt, int index)
       }
       }
 
-void preorder_traversal (Tree *bt, int index)
+void preorder_traversal (Tree *bt, int index) // Preorder → Root → Left → Right
     {
   if (index <= bt->lastindex)
     {
       int left = 2 * index + 1;
       int right = 2 * index + 2;
-      printf ("%d ", bt->tree[index]);
-      if(left <= bt->lastindex)
+      printf ("%d ", bt->tree[index]); // visit root first
+      if(left <= bt->lastindex) // check if left child exists
         {
         preorder_traversal (bt, left);
         }
-      if(right <= bt->lastindex)
+      if(right <= bt->lastindex) // check if right child exists
         {
         preorder_traversal (bt, right);
         }
     }
     }
 
-void postorder_traversal (Tree *bt, int index)
+void postorder_traversal (Tree *bt, int index) // Postorder → Left → Right → Root
     {
   if (index <= bt->lastindex)
     {
       int left = 2 * index + 1;
       int right = 2 * index + 2;
-      if(left <= bt->lastindex)
+      if(left <= bt->lastindex) // check if left child exists
         {
         postorder_traversal (bt, left);
         }
-      if(right <= bt->lastindex)
+      if(right <= bt->lastindex) // check if right child exists
         {
         postorder_traversal (bt, right);
         }
-      printf ("%d ", bt->tree[index]);
+      printf ("%d ", bt->tree[index]); // visit root last
     }
     }
 
@@ -101,11 +102,11 @@ int main()
   insert (&bt, 4);
   insert (&bt, 5);
   insert (&bt, 6);
-  printf("\ninorrder traversal \n");
+  printf("\n inorder traversal \n");
   inorder_traversal (&bt, 0);
-  printf("\npreorder traversal \n");
+  printf("\n preorder traversal \n");
   preorder_traversal (&bt, 0);
-  printf("\npostorder traversal \n");
+  printf("\n postorder traversal \n");
   postorder_traversal (&bt, 0);
   return 0;
   }

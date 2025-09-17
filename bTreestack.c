@@ -21,17 +21,17 @@ Btree* createnode(int data) {
 
 // ---------------- Inorder (Left → Root → Right) ----------------
 void inorder(Btree *root) {
-    Btree *s[50], *cur = root;
+    Btree *s[50], *cur = root; // stack and current pointer cur contain root node
     int top = -1;
 
-    while (cur != NULL || top != -1) {
-        while (cur != NULL) {           // go left
-            s[++top] = cur;
+    while (cur != NULL || top != -1) { // run until all nodes are visited
+        while (cur != NULL) {           // go left down to the leftmost node
+            s[++top] = cur; // push node onto stack
             cur = cur->llink;
         }
         cur = s[top--];                 // pop
         printf("%d ", cur->data);       // visit root
-        cur = cur->rlink;               // go right
+        cur = cur->rlink;               // go right When no left child: pop → print node → move to right subtree.
     }
 }
 
@@ -41,12 +41,12 @@ void preorder(Btree *root) {
 
     Btree *s[50];
     int top = -1;
-    s[++top] = root;
+    s[++top] = root; // push root onto stack
 
     while (top != -1) {
         Btree *cur = s[top--];
         printf("%d ", cur->data);       // visit root first
-
+        // Push right child first so that left child is processed first (LIFO order).
         if (cur->rlink != NULL)         // push right child
             s[++top] = cur->rlink;
         if (cur->llink != NULL)         // push left child
