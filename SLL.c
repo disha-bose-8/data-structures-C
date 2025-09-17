@@ -253,7 +253,7 @@ void search_all(LIST *ptr, int ele) {
 		return;
 	}
 
-	NODE *cur = ptr->head;     // start from the first actual node
+	NODE *cur = ptr->head;     // start from the first actual node, ptr->head has address of first node
 	int pos = 1;                      // position counter
 	int found = 0;                     // flag if element exists
 
@@ -270,8 +270,6 @@ void search_all(LIST *ptr, int ele) {
 		printf("Element %d not found in the list.\n", ele);
 	}
 }
-
-
 
 void sum(LIST *ptr) {
 	int sum=0;
@@ -292,7 +290,7 @@ void sortAscending(LIST *ptr) {
 		return; // empty or single node
 	}
 
-	NODE *i, *j;
+	NODE *i, *j; // two pointers for traversal
 	int temp;
 	for (i = ptr->head; i->link != NULL; i = i->link) {
 		for (j = i->link; j != NULL; j = j->link) {
@@ -325,7 +323,6 @@ void sortDescending(LIST *ptr) {
 	}
 }
 
-
 void search(LIST *ptr, int ele) {
 	NODE *cur = ptr->head;
 	int pos = 1;  // start from position 1
@@ -342,7 +339,7 @@ void search(LIST *ptr, int ele) {
 	printf("Element %d not found!\n", ele);
 }
 
-void init_list(LIST *ptr) //initialize ll
+void init_list(LIST *ptr) //initialize linked list
 {
     ptr->head = NULL; //list is empty initially head pointer points to null
 }
@@ -355,7 +352,7 @@ void insert_head(LIST *ptr, int data) //keep inserting at front
 	ptr->head currently points to the first node of the list (or NULL if the list is empty).
     By doing this, the new node’s link points to the current first node.
     This effectively inserts the new node before the existing nodes.*/
-    ptr->head = temp; //Updates the head pointer of the list to point to the new node.
+    ptr->head = temp; //Updates the head pointer of the list to point to the new node (temp).
 }
 
 void display(LIST *ptr)
@@ -385,6 +382,9 @@ void insert_end(LIST *ptr, int data) //keep inserting at end
         ptr->head = temp;
         return;
     }
+
+	//cur->link != NULL ✅ → stops at the last node (safe).
+	//cur != NULL ❌ → stops after falling off the list, leaving cur = NULL → crash.
 
     NODE *cur = ptr->head; //list not empty, go to end of list ptr->head gives first element address
     while (cur->link != NULL) //keep traversing till end
@@ -418,8 +418,8 @@ void insert_pos(LIST *ptr, int data, int pos) //insert at particular position
 
     while ((cur != NULL) && (i < pos))
     {
-        prev = cur; //move previous to current node pointer to the current node*****
-        cur = cur->link; //traversing
+        prev = cur; //move previous to current node pointer to the current node***** (basically storing the current one only)
+        cur = cur->link; //traversing cur increments to next node
         i++;
     }
 
@@ -467,8 +467,8 @@ void print_reverse(LIST *ptr)
 	NODE *cur = ptr->head;
 	NODE *next = NULL;
 	while (cur != NULL) {
-		next = cur->link; // node next to cur
-		cur->link = prev; // current node linked to previous node
+		next = cur->link; // next stores node next to cur
+		cur->link = prev; // current node linked to previous node (Reverse the link)
 		prev = cur; // previous node becomes current node
 		cur = next; // current node becomes next
 	}
@@ -506,7 +506,7 @@ void delete_node(LIST *ptr, int data) //delete a particular node by value
     else
         prev->link = cur->link;
 
-    free(cur);
+    free(cur); // free memory
 }
 
 void delete_pos(LIST *ptr, int pos)
@@ -568,7 +568,6 @@ int delete_front(LIST *ptr)
 	}
 	}
 	*/
-
 
 void delete_alternate(LIST *ptr) //function deletes every second node in the linked list
 {
