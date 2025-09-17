@@ -81,8 +81,8 @@ void inserttail(int ele) {
         return;
     }
 
-    NODE *first = ptr->rlink;
-    ptr->rlink = temp;
+    NODE *first = ptr->rlink; // address of first node
+    ptr->rlink = temp; // ptr now stores temp node
     temp->llink = ptr;
     temp->rlink = first;
     first->llink = temp;

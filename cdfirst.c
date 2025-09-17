@@ -69,10 +69,10 @@ void insertfront(int ele) {
 
     NODE *last = head->llink;
 
-    temp->rlink = head;
-    temp->llink = last;
-    last->rlink = temp;
-    head->llink = temp;
+    temp->rlink = head; // head contains first node address
+    temp->llink = last; // last contains last node address
+    last->rlink = temp; // update last node's rlink
+    head->llink = temp; // update first node's llink
 
     head = temp; // update head to new first
 }
