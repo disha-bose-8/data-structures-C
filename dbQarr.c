@@ -8,7 +8,7 @@
 
 void insert_front(int *q, int *r, int *f, int ele)
     {
-      if((*f == 0 && *r == MAX - 1) || (*f==*r+1)) // full condition
+      if((*f == 0 && *r == MAX - 1) || (*f == ((*r + 1) % MAX))) // full condition
         {
           printf("Queue is full\n");
           return;
@@ -25,7 +25,7 @@ void insert_front(int *q, int *r, int *f, int ele)
           }
         else if(*f == 0) // f at first position, need to shift elements to right (for 2nd element)
           {
-            *f = MAX - 1; // wrap around front to last position
+            *f = MAX - 1; // wrap around front to last position (circulary last index is just ahead front so thats why to put in front of first element wrap around)
             q[*f] = ele;
             }
         else // normal case

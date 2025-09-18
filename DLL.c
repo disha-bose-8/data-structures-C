@@ -181,6 +181,12 @@ int main()
     }
 }
 
+void init_list(DLIST *ptr)
+{
+    ptr->head = NULL; //pointer which points to first ele of dlist
+}
+
+
 void display_alternate(DLIST *ptr) {
     if (ptr->head == NULL) {
         printf("Empty List\n");
@@ -372,11 +378,6 @@ void count(DLIST *ptr) {
         }
         printf("%d\n", count);
     }
-}
-
-void init_list(DLIST *ptr)
-{
-    ptr->head = NULL; //pointer which points to first ele of dlist
 }
 
 // Print the list in reverse order

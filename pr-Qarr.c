@@ -15,8 +15,8 @@ void enqueue(int q[], int *rear, int *front, int ele)
     }
     else
     {
-        pos = *rear;
-        (*rear)++;
+        pos = *rear; // Save current rear position into pos
+        (*rear)++; // increment rear So, rear now points to the new last slot.
         while (pos >= 0 && q[pos] >= ele)
         {
             q[pos + 1] = q[pos];

@@ -65,7 +65,7 @@ int dequeue(int *q, int *f, int *r)
         return -1;
     }
 
-    int x = q[*f];
+    int x = q[*f]; // first element is removed
     if(*f == *r) // Only one element left
     {
         *f = -1;

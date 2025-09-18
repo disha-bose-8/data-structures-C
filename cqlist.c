@@ -31,9 +31,9 @@ void enqueue(CQUEUE *ptr, int ele)
     /* making it circular
     Suppose the queue initially contains: front → [10] → [20] → [30] → rear (which points back to front for circularity). now, enqueue 40:
     temp->data = 40
-    temp->link = ptr->front; [40] → [10] (new node points to front)
+    temp->link = ptr->front; [40] → [10] (new node points to front) ptr->front contains address of first node
     ptr->rear->link = temp; [30] → [40] (old rear points to new node)
-    ptr->rear = temp; rear now points to [40]
+    ptr->rear = temp; rear now points to [40] hold [40] address
     Resulting structure: front → [10] → [20] → [30] → [40] → (loops back to [10]) rear → [40] rear->link → [10] */
 
     temp->link=ptr->front;
