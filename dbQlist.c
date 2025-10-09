@@ -9,7 +9,7 @@
 // Define the structure of a node in the doubly linked list
 struct node {
     int key;                 // Data stored in the node
-    struct node *rlink, *llink; // Pointers to the rlink and llinkious nodes
+    struct node *rlink, *llink; // Pointers to the rlink and llink nodes
 };
 
 typedef struct node NODE;    // Alias for struct node

@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct root
+typedef struct root // structure for one particular node
 {
     int data;
     struct root *rlink;

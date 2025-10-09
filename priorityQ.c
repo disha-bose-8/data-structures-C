@@ -11,6 +11,9 @@ void enqueue(int *q, int *r, int ele)
         }
         else
         {
+
+          //while(j >= 0 && q[j] < ele) // shift smaller elements right
+
           int j = *r; // j starts from rear
             while(j >= 0 && q[j] > ele) // wont work for r=-1, if next element smaller than q[j] (prev) we enter loop
             {

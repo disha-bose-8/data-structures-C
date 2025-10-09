@@ -11,7 +11,7 @@ struct node // structure for one particular node
 };
 typedef struct node NODE;
 
-struct list
+struct list // structure for the linked list
 {
     NODE *head;// points to the sll
 };
@@ -247,6 +247,11 @@ int main()
     }
 }
 
+void init_list(LIST *ptr) //initialize linked list
+{
+	ptr->head = NULL; //list is empty initially head pointer points to null
+}
+
 void search_all(LIST *ptr, int ele) {
 	if (ptr->head == NULL) {   // check if list is empty
 		printf("List is empty.\n");
@@ -309,7 +314,7 @@ void sortDescending(LIST *ptr) {
 		return;
 	}
 
-	NODE *i, *j;
+	NODE *i, *j; // two pointers for traversal
 	int temp;
 	for (i = ptr->head; i->link != NULL; i = i->link) {
 		for (j = i->link; j != NULL; j = j->link) {
@@ -339,10 +344,6 @@ void search(LIST *ptr, int ele) {
 	printf("Element %d not found!\n", ele);
 }
 
-void init_list(LIST *ptr) //initialize linked list
-{
-    ptr->head = NULL; //list is empty initially head pointer points to null
-}
 
 void insert_head(LIST *ptr, int data) //keep inserting at front
 {
@@ -472,7 +473,7 @@ void print_reverse(LIST *ptr)
 		prev = cur; // previous node becomes current node
 		cur = next; // current node becomes next
 	}
-	ptr->head = prev;
+	ptr->head = prev; // head points to last node (new first node)
 }
 
 /* recursive method
@@ -534,7 +535,7 @@ void delete_pos(LIST *ptr, int pos)
     }
 
     if (prev == NULL)
-        ptr->head = cur->link; // delete first and only node
+        ptr->head = cur->link; // delete first and only node cur->link is null
     else
         prev->link = cur->link;
 
@@ -558,7 +559,7 @@ int delete_front(LIST *ptr)
 	if (ptr->head == NULL)
 		return 9999;
 	else {
-		NODE *first = ptr->head;
+		NODE *first = ptr->head; // address of first node
 		NODE *second = first->link;
 		int x;
 		x=first->data;
@@ -706,8 +707,8 @@ void delete_duplicates(LIST *ptr) { // ordered list
 	NODE *cur = ptr->head;
 	while (cur && cur->link) {
 		if (cur->data == cur->link->data) {
-			NODE *dup = cur->link;
-			cur->link = dup->link; //first dupicate gets removed
+			NODE *dup = cur->link; // dup has second duplicate (dup temporarily stores the next node (the duplicate node we want to remove).)
+			cur->link = dup->link; //
 			free(dup);
 		} else {
 			cur = cur->link;

@@ -124,12 +124,12 @@ void rotateQueue(QUEUE *ptr, int k) {
     if(k == 0) return;
 
     // move first k nodes to end
-    NODE *oldFront = ptr->front;
+    NODE *oldFront = ptr->front; // address of first node
     cur = ptr->front;
     for(int i = 1; i < k; i++) {
         cur = cur->link;
     }
-    NODE *newFront = cur->link;
+    NODE *newFront = cur->link; // remove cur node and make next node as new front
     cur->link = NULL;
     ptr->rear->link = oldFront;
     ptr->rear = cur;

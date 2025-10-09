@@ -82,7 +82,7 @@ void insert_front(clist_t *ptr, int data) {
         ptr->first = temp;
     } else {
         NODE *last = ptr->first;
-        while (last->link != ptr->first) // find last
+        while (last->link != ptr->first) // find last *******************
             last = last->link;
 
         temp->link = ptr->first;

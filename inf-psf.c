@@ -24,7 +24,7 @@ int main()
 }
 
 void convert_postfix(char *infix, char *postfix) {
-    char stack[MAX]; // stack to hold operators and parentheses
+    char stack[MAX]; // stack to hold operators and parentheses +-*/()
     int top = -1; // initially stack empty
     int i = 0, j = 0; // i → index for infix; j → index for postfix.
 
@@ -43,14 +43,14 @@ void convert_postfix(char *infix, char *postfix) {
 
     while ((token = infix[i++]) != '\0') { //Reads each character from infix until '\0' (end of string)
         if (isalnum(token)) {
-            postfix[j++] = token;//each character added in same order
+            postfix[j++] = token;//each character added in same order add to postfix string (abcd)
         }
         else if (token == '(') {
             push(stack, &top, token);
         }
         else if (token == ')') {
             while ((x = pop(stack, &top)) != '(') {
-                postfix[j++] = x;
+                postfix[j++] = x; //pop and add to postfix until '(' is found whatever operators bw ()
             }
         }
         else { // operator

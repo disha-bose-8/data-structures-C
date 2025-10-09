@@ -1,12 +1,3 @@
-//
-// Created by disha on 31-08-2025.
-//
-
-/*Quick summary of the algorithm
-Reverse the input infix string and swap ( ↔ ) (so grouping direction is preserved).
-Convert that reversed expression from infix → postfix (using a stack).
-Reverse the postfix result to get the final prefix expression.*/
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
@@ -14,87 +5,96 @@ Reverse the postfix result to get the final prefix expression.*/
 
 #define MAX 100
 
-// Stack functions for characters
+// ---------- Stack for characters ----------
 void push(char *stack, int *top, char x) {
-  stack[++(*top)] = x; // increment top and add x
+    stack[++(*top)] = x;
 }
 char pop(char *stack, int *top) {
-  return stack[(*top)--]; // return top element and decrement top
+    return stack[(*top)--];
 }
 char peek(char *stack, int top) {
-  return stack[top]; // return top element without popping
+    return stack[top];
+}
+int isEmpty(int top) {
+    return top == -1;
 }
 
-// Check precedence
-int precedence(char x) { // higher value means higher precedence
+// ---------- Operator precedence ----------
+int precedence(char x) {
     if (x == '+' || x == '-') return 1;
     if (x == '*' || x == '/' || x == '%') return 2;
     if (x == '^') return 3;
     return 0;
 }
 
-// Reverse a string
+// ---------- Reverse a string ----------
 void reverse(char *str) {
     int l = 0, r = strlen(str) - 1;
     while (l < r) {
-        char tmp = str[l]; // swap characters
-        str[l++] = str[r]; // store and increment
-        str[r--] = tmp; // store and decrement (last character)
+        char tmp = str[l];
+        str[l++] = str[r];
+        str[r--] = tmp;
     }
 }
 
-/*Swapping parentheses in the reversed infix expression is necessary because reversing the expression changes the direction of the
-parentheses. An opening parenthesis ( becomes a closing parenthesis ) and vice versa. This ensures the correct grouping of
-sub-expressions when converting from infix to prefix notation.*/
-
-// Swap '(' with ')' and vice versa
+// ---------- Swap parentheses ----------
 void swapParentheses(char *exp) {
     for (int i = 0; exp[i] != '\0'; i++) {
         if (exp[i] == '(')
-          exp[i] = ')';
+            exp[i] = ')';
         else if (exp[i] == ')')
-          exp[i] = '(';
+            exp[i] = '(';
     }
 }
 
-// Infix to Prefix conversion
-void infixToPrefix(char *infix, char *prefix) {
+// ---------- Infix → Postfix ----------
+void convert_postfix(char *infix, char *postfix) {
     char stack[MAX];
-    int top = -1;
-    int j = 0;
-    int len = strlen(infix);
+    int top = -1, j = 0;
 
-    // Step 1: Reverse infix and swap parentheses
-    reverse(infix);
-    swapParentheses(infix);
+    for (int i = 0; infix[i] != '\0'; i++) {
+        char ch = infix[i];
 
-    // Step 2: Standard infix to postfix on reversed expression
-    for (int i = 0; i < len; i++) {
-        char token = infix[i];
-        if (isalnum(token)) {
-            prefix[j++] = token; // storing in prefix array
-        } else if (token == '(') {
-            push(stack, &top, token); //
-        } else if (token == ')') {
-            while (top != -1 && peek(stack, top) != '(') {
-                prefix[j++] = pop(stack, &top);
-            }
+        if (isalnum(ch)) { // operand
+            postfix[j++] = ch;
+        }
+        else if (ch == '(') {
+            push(stack, &top, ch);
+        }
+        else if (ch == ')') {
+            while (!isEmpty(top) && peek(stack, top) != '(')
+                postfix[j++] = pop(stack, &top);
             pop(stack, &top); // remove '('
-        } else { // operator
-            while (top != -1 && precedence(peek(stack, top)) >= precedence(token)) {
-                prefix[j++] = pop(stack, &top);
-            }
-            push(stack, &top, token);
+        }
+        else { // operator
+            while (!isEmpty(top) && precedence(peek(stack, top)) >= precedence(ch))
+                postfix[j++] = pop(stack, &top);
+            push(stack, &top, ch);
         }
     }
 
-    while (top != -1) {
-        prefix[j++] = pop(stack, &top);
+    while (!isEmpty(top)) {
+        postfix[j++] = pop(stack, &top);
     }
 
-    prefix[j] = '\0';
+    postfix[j] = '\0';
+}
 
-    // Step 3: Reverse postfix to get prefix
+// ---------- Infix → Prefix ----------
+void infix_to_prefix(char *infix, char *prefix) {
+    char postfix[MAX];
+
+    // Step 1: Reverse infix
+    reverse(infix);
+
+    // Step 2: Swap ( and )
+    swapParentheses(infix);
+
+    // Step 3: Convert to postfix
+    convert_postfix(infix, postfix);
+
+    // Step 4: Reverse postfix to get prefix
+    strcpy(prefix, postfix);
     reverse(prefix);
 }
 
@@ -104,8 +104,8 @@ int main() {
     printf("Enter infix expression: ");
     scanf("%s", infix);
 
-    infixToPrefix(infix, prefix);
-    printf("Prefix expression: %s\n", prefix);
+    infix_to_prefix(infix, prefix);
 
+    printf("Prefix expression: %s\n", prefix);
     return 0;
 }

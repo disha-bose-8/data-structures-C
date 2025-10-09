@@ -8,7 +8,7 @@ typedef struct node {
 } NODE;
 
 // initially stack is empty
-NODE *top = NULL;  // Stack top pointer top always points to the top of stack (most recently pushed element).
+NODE *top = NULL;  // Stack top pointer top always points to the top of stack (most recently pushed element). stores address of top node
 
 // Function to push element onto stack
 void push(int ele) {
