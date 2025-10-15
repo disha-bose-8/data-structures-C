@@ -1,3 +1,5 @@
+// Iterative Traversal of Binary Tree using Stack
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -29,8 +31,8 @@ void inorder(Btree *root) {
             s[++top] = cur; // push node onto stack
             cur = cur->llink;
         }
-        cur = s[top--];                 // pop
-        printf("%d ", cur->data);       // visit root
+        cur = s[top--];                 // pop leftmost node
+        printf("%d ", cur->data); // print node
         cur = cur->rlink;               // go right When no left child: pop → print node → move to right subtree.
     }
 }
