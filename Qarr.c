@@ -44,7 +44,7 @@ int dequeue(int *q,int *front,int rear) // front → pointer to the front index
 }
 
 // Display elements of queue
-void display(int *q,int rear, int front)
+void display(int *q,int rear, int front )
 {
     if(front>rear)
     {

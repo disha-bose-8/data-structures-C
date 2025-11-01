@@ -65,13 +65,16 @@ int josephus(int n, int k) {
     // Repeat until one survives
     while (q.size > 1) {
         // Skip k-1 persons (dequeue and enqueue them back)
-        for (int i = 1; i < k; i++) {
+        for (int i = 1; i < k; i++) { // Each iteration removes the front person and immediately adds them to the rear
             int temp = dequeue(&q);
             enqueue(&q, temp);
         }
 
         // Kill the k-th person
         int killed = dequeue(&q);
+        /*The k-th person is now at the front of the queue.
+        dequeue() removes them permanently (not reinserted).
+        Prints who got killed.*/
         printf("%d has been killed\n", killed);
     }
 

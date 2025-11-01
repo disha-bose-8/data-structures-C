@@ -227,8 +227,8 @@ void insert_head(DLIST *ptr, int data) {
     temp->data = data;
     temp->rlink = ptr->head; // address of first node
     temp->llink = NULL;
-    if (ptr->head != NULL)
-        ptr->head->llink = temp;
+    if (ptr->head != NULL) // more than one node present
+        ptr->head->llink = temp; // first node's llink points to new node
     ptr->head = temp;
     ptr->no_of_nodes++;
 }
@@ -261,7 +261,7 @@ void insert_pos(DLIST *ptr, int data, int pos) {
     }
     NODE *cur = ptr->head;
     int i = 1;
-    while (cur != NULL && i < pos - 1) {
+    while (cur != NULL && i < pos - 1) { // stop at node before desired position ***
         cur = cur->rlink;
         i++;
     }

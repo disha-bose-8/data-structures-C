@@ -1,10 +1,11 @@
 //priority queue using linked list
+
 #include <stdio.h>
 #include <stdlib.h>
 
 typedef struct node {
     int data;
-    int priority;
+    int priority; // the priority level (smaller value = higher priority)
     struct node *link;
 } NODE;
 
