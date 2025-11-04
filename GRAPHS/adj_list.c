@@ -3,13 +3,13 @@
 
 #define MAX 100 
 
-typedef struct node {
+typedef struct node { // each node is a vertex in the adjacency list
     int data;
-    struct node* link;
+    struct node* link; // pointer to the next node (next vertex in the list)
 } NODE;
 
 
-void insert(NODE *a[], int i, int j) {
+void insert(NODE *a[], int i, int j) { // j is data to be inserted at index i
     NODE *temp = malloc(sizeof(NODE));
     if (temp == NULL) {
         perror("Memory allocation failed");
@@ -55,8 +55,8 @@ void create_graph(NODE *a[], int n) {
     printf("Enter edges (source destination). Enter a vertex outside [0, %d] to stop.\n", n - 1);
     while(1) {
         printf("Enter the source and destination: ");
-        // Note: Using a space in the format string is safer: " %d %d"
-        if (scanf("%d%d", &i, &j) != 2) {
+
+        if (scanf("%d %d", &i, &j) != 2) {
              // Handle non-integer input
              while(getchar() != '\n'); // Clear the buffer
              printf("Invalid input format. Stopping.\n");
@@ -120,4 +120,6 @@ int main() {
     printf("enter vertex to find indegree: ");
     scanf("%d", &v);
 
+    printf("Indegree of %d = %d\n", v, indegree(a, v, n));
+    printf("Outdegree of %d = %d\n", v, outdegree(a, v, n));
 }
