@@ -3,6 +3,16 @@
 //
 // bottom up heapify
 
+/*Array: [50, 30, 20, 15, 10, 8, 16]
+
+Tree:
+         50
+       /    \
+     30      20
+    /  \    /  \
+   15  10  8   16
+*/
+
 /*🧠 Purpose of the Program
 This program:
 Takes an array of elements.
@@ -13,10 +23,10 @@ Then repeatedly deletes the maximum element (the root) until the heap is empty.*
 #include <stdlib.h>
 #define MAX 25 // Maximum size of the heap
 
-void bottom_up(int *h, int n)
+void bottom_up(int *h, int n) // *h is pointer to array, n is number of elements
 {
     int k, i, j, key;
-    for(k=(n-1)/2;k>=0;k--) // start from last non-leaf node and go to root, heap of n elements, nodes n/2 to n-1 are leaves
+    for(k=(n-1)/2;k>=0;k--) // start from last non-leaf node (n-1/2) and go to root, heap of n elements, nodes n/2 to n-1 are leaves
     {
         key=h[k]; // key stores current node value
         j=k; // j is current node index

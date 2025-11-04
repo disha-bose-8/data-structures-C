@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #define MAX 25
 
-// Function to insert a new value into the heap (Top-down heapify)
+// Function to insert a new value into the heap (top down heapify)
 void top_down(int *h, int *size, int value)
 {
     if(*size >= MAX) {
@@ -133,3 +133,5 @@ int main()
         }
     }
 }
+
+// this program creates max heap simultaneously as we insert elements using top-down method
