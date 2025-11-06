@@ -1,42 +1,37 @@
 //
-// Created by disha on 30-10-2025.
+// Connected Components + Path Printing using DFS
 //
-
-// Connected Components + Path Printing using DFS (Adjacency List)
 
 #include <stdio.h>
 #include <stdlib.h>
 
 #define MAX 50
 
-// Structure for adjacency list node
 typedef struct node {
     int data;
     struct node *link;
 } NODE;
 
-NODE *a[MAX];          // adjacency list
-int visited[MAX];      // visited array
-int parent[MAX];       // to track paths
-int n;                 // number of vertices
+NODE *a[MAX];
+int visited[MAX];
+int parent[MAX];
+int n;
 
-// Function to insert edge into adjacency list
 void insertEdge(int src, int dest) {
     NODE *temp = malloc(sizeof(NODE));
     temp->data = dest;
     temp->link = NULL;
 
-    if (a[src] == NULL) {
+    if (a[src] == NULL)
         a[src] = temp;
-    } else {
+    else {
         NODE *cur = a[src];
-        while (cur->link != NULL)
+        while (cur->link)
             cur = cur->link;
         cur->link = temp;
     }
 }
 
-// Function to create graph
 void createGraph() {
     int src, dest;
     printf("Enter number of vertices: ");
@@ -45,52 +40,46 @@ void createGraph() {
     for (int i = 0; i < n; i++)
         a[i] = NULL;
 
-    printf("Enter edges (src dest). Enter -1 -1 to stop:\n");
+    printf("Enter edges (src dest), -1 -1 to stop:\n");
     while (1) {
         scanf("%d %d", &src, &dest);
-        if (src == -1 || dest == -1)
-            break;
+        if (src == -1 && dest == -1) break;
         insertEdge(src, dest);
-        insertEdge(dest, src); // make it UNDIRECTED
+        insertEdge(dest, src);
     }
 }
 
-// Depth-First Search
 void dfs(int v) {
     visited[v] = 1;
     NODE *temp = a[v];
 
-    while (temp != NULL) {
+    while (temp) {
         int u = temp->data;
         if (!visited[u]) {
-            parent[u] = v; // track path
+            parent[u] = v;
             dfs(u);
         }
         temp = temp->link;
     }
 }
 
-// Print path from source to vertex j
-void printPath(int parent[], int j) {
-    if (parent[j] == -1)
-        return;
-    printPath(parent, parent[j]);
+void printPath(int j) {
+    if (parent[j] == -1) return;
+    printPath(parent[j]);
     printf("%d ", j);
 }
 
-// Print all paths from source to others
-void printAllPaths(int parent[], int n, int src) {
-    printf("\nAll paths from source vertex %d:\n", src);
+void printAllPaths(int src) {
+    printf("\nPaths from %d:\n", src);
     for (int i = 0; i < n; i++) {
         if (i != src && parent[i] != -1) {
             printf("Path to %d: %d ", i, src);
-            printPath(parent, i);
+            printPath(i);
             printf("\n");
         }
     }
 }
 
-// Count number of connected components
 int countComponents() {
     int count = 0;
     for (int i = 0; i < n; i++) {
@@ -102,13 +91,12 @@ int countComponents() {
     return count;
 }
 
-// Display adjacency list
 void displayGraph() {
     printf("\nAdjacency List:\n");
     for (int i = 0; i < n; i++) {
         printf("%d -> ", i);
         NODE *temp = a[i];
-        while (temp != NULL) {
+        while (temp) {
             printf("%d ", temp->data);
             temp = temp->link;
         }
@@ -120,25 +108,23 @@ int main() {
     createGraph();
     displayGraph();
 
-    // Reset arrays
-    for (int i = 0; i < n; i++) {
-        visited[i] = 0;
-        parent[i] = -1;
-    }
+    for (int i = 0; i < n; i++)
+        visited[i] = parent[i] = -1;
 
     int src;
-    printf("\nEnter source vertex for DFS path printing: ");
+    printf("\nEnter source for DFS paths: ");
     scanf("%d", &src);
 
+    visited[src] = 1;
     dfs(src);
-    printAllPaths(parent, n, src);
 
-    // Reset visited[] to count components separately
+    printAllPaths(src);
+
     for (int i = 0; i < n; i++)
         visited[i] = 0;
 
     int components = countComponents();
-    printf("\nNumber of connected components in the graph: %d\n", components);
+    printf("\nConnected Components = %d\n", components);
 
     return 0;
 }

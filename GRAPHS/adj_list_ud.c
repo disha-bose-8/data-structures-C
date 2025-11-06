@@ -1,7 +1,11 @@
+//
+// Created by disha on 04-11-2025.
+//
+
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MAX 100 
+#define MAX 100
 
 typedef struct node { // each node is a vertex in the adjacency list
     int data;
@@ -46,12 +50,12 @@ void display(NODE* a[], int n) {
 }
 
 
-void create_graph(NODE *a[], int n) { 
+void create_graph(NODE *a[], int n) {
     int i, j;
     for (int k = 0; k < n; k++) {
         a[k] = NULL;
     }
-    
+
     printf("Enter edges (source destination). Enter a vertex outside [0, %d] to stop.\n", n - 1);
     while(1) {
         printf("Enter the source and destination: ");
@@ -63,52 +67,63 @@ void create_graph(NODE *a[], int n) {
              break;
         }
 
-        if (i < 0 || j < 0 || i >= n || j >= n) { 
+        if (i < 0 || j < 0 || i >= n || j >= n) {
             printf("Input stopped.\n");
             break;
         }
-        
-        // This program creates a DIRECTED graph because insert is only called once.
-        insert(a, i, j); 
-        
+
+        // This part creates a DIRECTED graph because insert is only called once.
+        insert(a, i, j);
+
         // For an UNDIRECTED graph, you would add:
-        // insert(a, j, i); 
+        insert(a, j, i);
     }
 }
 
-int indegree(NODE* a[],int v,int n) { // supposed v=2 so function counts all the nodes which have a link to 2
-    int count = 0;
+// indegree and outdegree same in undirected graph
+
+void print_degrees(NODE *a[], int n) {
+    printf("\nVertex Degrees:\n");
     for (int i = 0; i < n; i++) {
-        NODE* cur=a[i];
-        while (cur != NULL) {
-            if (cur->data == v) {
-                ++count;
-            }
-            cur=cur->link;
-        }
-    }
-    return count;
-}
+        int count = 0;
 
-int outdegree(NODE *a[], int v, int n) { // suppose v=2 simply counts all the nodes linked from 2
-    int count = 0;
-    NODE *cur = a[v];
-    while (cur != NULL) {
-        ++count;
-        cur = cur->link;
+        printf("Degree(%d) = ", i);
+
+        // Count how many nodes it’s connected to
+        NODE *temp = a[i];
+        while (temp != NULL) {
+            count++;
+            temp = temp->link;
+        }
+
+        printf("%d (connected to ", count);
+
+        // Print connected vertices
+        NODE *cur = a[i];
+        if (cur == NULL) {
+            printf("none");
+        } else {
+            while (cur != NULL) {
+                printf("%d", cur->data);
+                if (cur->link != NULL)
+                    printf(", ");
+                cur = cur->link;
+            }
+        }
+
+        printf(")\n");
     }
-    return count;
 }
 
 
 int main() {
     int n,v;
 
-    NODE *a[MAX]; 
-    
+    NODE *a[MAX];
+
     printf("Enter the number of vertices (max %d):\n", MAX);
     scanf("%d", &n);
-    
+
     if (n <= 0 || n > MAX) {
         printf("Invalid number of vertices.\n");
         return 1;
@@ -116,10 +131,5 @@ int main() {
 
     create_graph(a, n);
     display(a, n);
-
-    printf("enter vertex to find indegree & outdegree: ");
-    scanf("%d", &v);
-
-    printf("Indegree of %d = %d\n", v, indegree(a, v, n));
-    printf("Outdegree of %d = %d\n", v, outdegree(a, v, n));
+    print_degrees(a, n);
 }

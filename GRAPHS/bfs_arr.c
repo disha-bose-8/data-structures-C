@@ -2,11 +2,11 @@
 // Created by disha on 29-10-2025.
 //
 
-// UNDIRECTED GRAPH BFS TRAVERSAL
+// UNDIRECTED GRAPH BFS TRAVERSAL USING ADJACENCY MATRIX AND ARRAY-BASED QUEUE
 
 #include <stdio.h>
 #define MAX 50
-int visited[MAX]={0};
+int visited[MAX]={0}; // keeps track of visited vertices
 int a[MAX][MAX];
 int f=0,r=-1;
 int queue[MAX];
@@ -38,13 +38,14 @@ void display(int n)
     }
 }
 
-void bfs(int v) {
+// initially [0 0 0 0 0]
+void bfs(int v, int n) {
     visited[v]=1;
     printf("%d is visited \n",v);
     queue[++r]=v;
     while (f<=r) {
         v=queue[f++];
-        for(int u=0;u<MAX;u++)
+        for(int u=0;u<n;u++)
         {
             if(a[v][u]==1 )
             {
@@ -68,5 +69,5 @@ int main()
     display(n);
     printf("enter the starting vertex:");
     scanf("%d",&v);
-    bfs(v);
+    bfs(v,n);
   }

@@ -21,9 +21,9 @@ void addEdge(int graph[Max_vertices][Max_vertices], int start, int end)
 
 void display(int graph[Max_vertices][Max_vertices],int vertices)
     {
-  for(int i=0;i<vertices;i++)
+  for(int i=0;i<vertices;i++) // "from" vertices
     {
-      for(int j=0;j<vertices;j++)
+      for(int j=0;j<vertices;j++) // "to" vertices
         {
           printf("%d ", graph[i][j]);
         }
@@ -31,7 +31,7 @@ void display(int graph[Max_vertices][Max_vertices],int vertices)
     }
     }
 
-int in_degree(int graph[Max_vertices][Max_vertices], int v, int vertices)
+int in_degree(int graph[Max_vertices][Max_vertices], int v, int vertices) // how many edges are coming into vertex v
     {
   int count = 0;
   for(int i=0;i<vertices;i++)
@@ -47,7 +47,7 @@ int out_degree(int graph[Max_vertices][Max_vertices], int v, int vertices)
       int count = 0;
       for(int i=0;i<vertices;i++)
         {
-          if(graph[v][i] == 1)
+          if(graph[v][i] == 1) // how many edges are going out from vertex v
             count++;
         }
       return count;

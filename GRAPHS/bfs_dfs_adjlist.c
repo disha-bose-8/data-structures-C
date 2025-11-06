@@ -1,8 +1,8 @@
 //
 // Created by disha on 29-10-2025.
 //
-
 // DIRECTED GRAPH: BFS + DFS + Connectivity Check using Adjacency List
+
 #include <stdio.h>
 #include <stdlib.h>
 #define MAX 50
@@ -52,25 +52,31 @@ void creategraph(NODE *a[], int n) {
 }
 
 // ---------------- Queue for BFS ----------------
-NODE* insertrear(int v, NODE *q) {
-    NODE *temp = malloc(sizeof(NODE));
+typedef struct queue {
+    int data;
+    struct queue *link;
+} QNODE;
+
+QNODE* insertrear(int v, QNODE *q) {
+    QNODE *temp = malloc(sizeof(QNODE));
     temp->data = v;
     temp->link = NULL;
 
     if (q == NULL)
         return temp;
 
-    NODE *cur = q;
+    QNODE *cur = q;
     while (cur->link != NULL)
         cur = cur->link;
     cur->link = temp;
     return q;
 }
 
-NODE* deletefront(NODE *q) {
+QNODE* deletefront(QNODE *q, int *val) {
     if (q == NULL)
         return NULL;
-    NODE *first = q;
+    QNODE *first = q;
+    *val = first->data;
     q = first->link;
     free(first);
     return q;
@@ -78,16 +84,16 @@ NODE* deletefront(NODE *q) {
 
 // ---------------- BFS Traversal ----------------
 void bfs(int v) {
-    NODE *q = NULL, *list;
+    QNODE *q = NULL;
     int u;
+    NODE *list;
 
     visited[v] = 1;
     q = insertrear(v, q);
-    printf("%d is visited\n", v);
+    printf("%d ", v);
 
     while (q != NULL) {
-        u = q->data;
-        q = deletefront(q);
+        q = deletefront(q, &u);
         list = a[u];
 
         while (list != NULL) {
@@ -95,7 +101,7 @@ void bfs(int v) {
             if (visited[w] == 0) {
                 visited[w] = 1;
                 q = insertrear(w, q);
-                printf("%d is visited\n", w);
+                printf("%d ", w);
             }
             list = list->link;
         }
@@ -106,7 +112,7 @@ void bfs(int v) {
 void dfs(int v) {
     NODE *temp;
     visited[v] = 1;
-    printf("%d is visited\n", v);
+    printf("%d ", v);
 
     temp = a[v];
     while (temp != NULL) {
@@ -122,6 +128,7 @@ int isconnected() {
         visited[i] = 0;
 
     dfs(0);
+
     for (int i = 0; i < n; i++) {
         if (!visited[i])
             return 0;
@@ -139,11 +146,11 @@ int main() {
     printf("Enter starting vertex for DFS/BFS: ");
     scanf("%d", &v);
 
-    printf("\nDFS Traversal:\n");
+    printf("\nDFS Traversal: ");
     for (int i = 0; i < n; i++) visited[i] = 0;
     dfs(v);
 
-    printf("\n\nBFS Traversal:\n");
+    printf("\nBFS Traversal: ");
     for (int i = 0; i < n; i++) visited[i] = 0;
     bfs(v);
 
