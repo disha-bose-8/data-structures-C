@@ -7,9 +7,9 @@
 
 #define MAX 100
 
-typedef struct node { // each node is a vertex in the adjacency list
-    int data;
-    struct node* link; // pointer to the next node (next vertex in the list)
+typedef struct node { // each node is an edge in the adjacency list
+    int data; // destination vertex
+    struct node* link; // pointer to the next node (dest vertex)
 } NODE;
 
 

@@ -1,11 +1,11 @@
 //
-// Created by disha on 05-11-2025.
+// Created by disha on 06-11-2025.
+// Hash Table using Quadratic Probing
 //
-// linear probing
 
 #include <stdio.h>
 #include <stdlib.h>
-#define MAX 5
+#define MAX 7
 
 typedef struct item {
     int key;
@@ -13,7 +13,7 @@ typedef struct item {
 } ITEM;
 
 typedef struct hash {
-    int flag;          // 0 = empty, 1 = occupied, 2 = deleted
+    int flag;      // 0 = empty, 1 = occupied, 2 = deleted
     ITEM *data;
 } HASH_TABLE;
 
@@ -31,13 +31,13 @@ int hash_fun(int key) {
 }
 
 void insert(int key, int value) {
-    int i, index;
-    i = hash_fun(key);
-    index = i;
-
+    int i, index, h = 1;
     ITEM *ele = (ITEM *)malloc(sizeof(ITEM));
     ele->key = key;
     ele->value = value;
+
+    i = hash_fun(key);
+    index = i;
 
     while (array[i].flag == 1) {
         if (array[i].data->key == key) {
@@ -45,7 +45,9 @@ void insert(int key, int value) {
             array[i].data->value = value;
             return;
         }
-        i = (i + 1) % MAX;
+
+        i = (index + (h * h)) % MAX;
+        h++;
         if (i == index) {
             printf("Hash table is full! Cannot insert %d\n", key);
             return;
@@ -58,7 +60,7 @@ void insert(int key, int value) {
 }
 
 void search(int key) {
-    int i, index;
+    int i, index, h = 1;
     i = hash_fun(key);
     index = i;
 
@@ -67,7 +69,8 @@ void search(int key) {
             printf("Key %d found at index %d with value %d\n", key, i, array[i].data->value);
             return;
         }
-        i = (i + 1) % MAX;
+        i = (i + (h * h)) % MAX;
+        h++;
         if (i == index) break;
     }
 
@@ -75,19 +78,20 @@ void search(int key) {
 }
 
 void remove_item(int key) {
-    int i, index;
+    int i, index, h = 1;
     i = hash_fun(key);
     index = i;
 
     while (array[i].flag != 0) {
         if (array[i].flag == 1 && array[i].data->key == key) {
             printf("Deleting key %d from index %d\n", key, i);
-            array[i].flag = 2; // marking it for deletion
+            array[i].flag = 2; // mark as deleted
             free(array[i].data);
             array[i].data = NULL;
             return;
         }
-        i = (i + 1) % MAX;
+        i = (index + (h * h)) % MAX;
+        h++;
         if (i == index) break;
     }
 
@@ -110,7 +114,6 @@ void display() {
 
 int main() {
     int key, value, choice;
-
     array = (HASH_TABLE *)malloc(MAX * sizeof(HASH_TABLE));
     init();
 
@@ -121,26 +124,31 @@ int main() {
 
         switch (choice) {
             case 1:
-                printf("Enter key and value: ");
+                printf("Enter key and value to insert: ");
                 scanf("%d %d", &key, &value);
                 insert(key, value);
                 break;
+
             case 2:
                 printf("Enter key to search: ");
                 scanf("%d", &key);
                 search(key);
                 break;
+
             case 3:
                 printf("Enter key to delete: ");
                 scanf("%d", &key);
                 remove_item(key);
                 break;
+
             case 4:
                 display();
                 break;
+
             case 5:
                 printf("Exiting...\n");
                 exit(0);
+
             default:
                 printf("Invalid choice!\n");
         }

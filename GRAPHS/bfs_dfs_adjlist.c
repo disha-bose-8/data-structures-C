@@ -12,16 +12,16 @@ int visited[MAX] = {0};
 int n;  // total vertices
 
 // Adjacency list node
-typedef struct node {
-    int data;
-    struct node* link;
+typedef struct node { // edge in the adjacency list
+    int data; // destination vertex
+    struct node* link; // pointer to the next node (destination vertex)
 } NODE;
 
 // Graph adjacency list
 NODE *a[MAX];
 
 // ---------------- Graph Creation ----------------
-void insert(NODE *a[], int so, int des) {
+void insert(NODE *a[], int so, int des) { // keep linking des vertices to so
     NODE *temp = malloc(sizeof(NODE));
     temp->data = des;
     temp->link = NULL;

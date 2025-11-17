@@ -7,12 +7,12 @@
 #include <limits.h>
 #define SIZE 20
 
-typedef struct heap {
-    int heap[SIZE];
-    int heapsize;
+typedef struct heap { // Define heap structure
+    int heap[SIZE]; // Array to store heap elements
+    int heapsize; // Current number of elements in the heap
 } NODE;
 
-void init(NODE *h) {
+void init(NODE *h) { // Initialize the heap
     h->heapsize = 0;
     h->heap[0] = INT_MAX;
 }
@@ -28,8 +28,8 @@ void swap(int *a, int *b) {
 void insert_TopDown(NODE *h, int data) {
     int c, p;
     h->heap[++(h->heapsize)] = data;  // Insert at the end
-    c = h->heapsize;
-    p = c / 2;
+    c = h->heapsize; // Child index, stores the index of newly added element
+    p = c / 2; // Parent index
 
     // Heapify: Bubble up
     while (h->heap[p] < h->heap[c]) {

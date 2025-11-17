@@ -7,9 +7,9 @@
 #include <stdio.h>
 #define MAX 50
 int visited[MAX]={0}; // keeps track of visited vertices
-int a[MAX][MAX];
+int a[MAX][MAX]; // adjacency matrix
 int f=0,r=-1;
-int queue[MAX];
+int queue[MAX]; // queue for BFS
 
 void create_matrix(int n)
 {
@@ -39,11 +39,11 @@ void display(int n)
 }
 
 // initially [0 0 0 0 0]
-void bfs(int v, int n) {
+void bfs(int v, int n) { // starting vertex v, total vertices n
     visited[v]=1;
     printf("%d is visited \n",v);
     queue[++r]=v;
-    while (f<=r) {
+    while (f<=r) { // as long as queue is not empty
         v=queue[f++];
         for(int u=0;u<n;u++)
         {

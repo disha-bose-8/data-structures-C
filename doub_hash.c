@@ -1,24 +1,35 @@
 //
-// Created by disha on 05-11-2025.
+// Created by disha on 06-11-2025.
+// Double Hashing Implementation
 //
-// linear probing
 
 #include <stdio.h>
 #include <stdlib.h>
-#define MAX 5
+#define MAX 10
+#define PRIME 7   // smaller prime number < MAX
 
 typedef struct item {
     int key;
     int value;
-} ITEM;
+} item;
 
 typedef struct hash {
-    int flag;          // 0 = empty, 1 = occupied, 2 = deleted
-    ITEM *data;
-} HASH_TABLE;
+    int flag;      // 0 = empty, 1 = occupied, 2 = deleted
+    item *data;
+} hash_table;
 
-HASH_TABLE *array;
+hash_table *array;
 
+// ------------------ Hash Functions ------------------
+int hash_fun1(int key) {
+    return key % MAX;
+}
+
+int hash_fun2(int key) {
+    return (PRIME - (key % PRIME));
+}
+
+// ------------------ Initialize ------------------
 void init() {
     for (int i = 0; i < MAX; i++) {
         array[i].flag = 0;
@@ -26,18 +37,16 @@ void init() {
     }
 }
 
-int hash_fun(int key) {
-    return key % MAX;
-}
-
+// ------------------ Insert ------------------
 void insert(int key, int value) {
     int i, index;
-    i = hash_fun(key);
-    index = i;
-
-    ITEM *ele = (ITEM *)malloc(sizeof(ITEM));
+    item *ele = malloc(sizeof(item));
     ele->key = key;
     ele->value = value;
+
+    i = hash_fun1(key);
+    index = i;
+    int h = 1;
 
     while (array[i].flag == 1) {
         if (array[i].data->key == key) {
@@ -45,7 +54,8 @@ void insert(int key, int value) {
             array[i].data->value = value;
             return;
         }
-        i = (i + 1) % MAX;
+        i = (index + h * hash_fun2(key)) % MAX;
+        h++;
         if (i == index) {
             printf("Hash table is full! Cannot insert %d\n", key);
             return;
@@ -57,43 +67,47 @@ void insert(int key, int value) {
     printf("%d inserted at index %d\n", key, i);
 }
 
+// ------------------ Search ------------------
 void search(int key) {
-    int i, index;
-    i = hash_fun(key);
-    index = i;
+    int i = hash_fun1(key);
+    int index = i;
+    int h = 1;
 
     while (array[i].flag != 0) {
         if (array[i].flag == 1 && array[i].data->key == key) {
-            printf("Key %d found at index %d with value %d\n", key, i, array[i].data->value);
+            printf("Key %d found at index %d with value %d\n",
+                   key, i, array[i].data->value);
             return;
         }
-        i = (i + 1) % MAX;
+        i = (index + h * hash_fun2(key)) % MAX;
+        h++;
         if (i == index) break;
     }
-
     printf("Key %d not found in hash table\n", key);
 }
 
+// ------------------ Remove ------------------
 void remove_item(int key) {
-    int i, index;
-    i = hash_fun(key);
-    index = i;
+    int i = hash_fun1(key);
+    int index = i;
+    int h = 1;
 
     while (array[i].flag != 0) {
         if (array[i].flag == 1 && array[i].data->key == key) {
             printf("Deleting key %d from index %d\n", key, i);
-            array[i].flag = 2; // marking it for deletion
+            array[i].flag = 2; // mark as deleted
             free(array[i].data);
             array[i].data = NULL;
             return;
         }
-        i = (i + 1) % MAX;
+        i = (index + h * hash_fun2(key)) % MAX;
+        h++;
         if (i == index) break;
     }
-
     printf("Key %d not found, cannot delete\n", key);
 }
 
+// ------------------ Display ------------------
 void display() {
     printf("\nHash Table:\n");
     for (int i = 0; i < MAX; i++) {
@@ -108,10 +122,10 @@ void display() {
     printf("\n");
 }
 
+// ------------------ Main ------------------
 int main() {
     int key, value, choice;
-
-    array = (HASH_TABLE *)malloc(MAX * sizeof(HASH_TABLE));
+    array = malloc(MAX * sizeof(hash_table));
     init();
 
     while (1) {
@@ -125,22 +139,27 @@ int main() {
                 scanf("%d %d", &key, &value);
                 insert(key, value);
                 break;
+
             case 2:
                 printf("Enter key to search: ");
                 scanf("%d", &key);
                 search(key);
                 break;
+
             case 3:
                 printf("Enter key to delete: ");
                 scanf("%d", &key);
                 remove_item(key);
                 break;
+
             case 4:
                 display();
                 break;
+
             case 5:
                 printf("Exiting...\n");
                 exit(0);
+
             default:
                 printf("Invalid choice!\n");
         }

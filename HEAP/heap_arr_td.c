@@ -57,7 +57,7 @@ void display(int *h, int size)
 void heapify(int *h, int n)
 {
     int i = 0, j, key;
-    key = h[i];
+    key = h[i]; // store root value
     j = 2*i + 1; // left child index
 
     while(j <= n - 1) // while there is at least one child

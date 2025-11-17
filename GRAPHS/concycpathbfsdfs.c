@@ -11,19 +11,16 @@
 #include <stdlib.h>
 #define MAX 50
 
-// ---------- STRUCTURE ----------
 typedef struct node {
     int data;
     struct node *link;
 } NODE;
 
-// ---------- GLOBAL VARIABLES ----------
 NODE *adj[MAX];
 int visited[MAX];
 int parent[MAX];
 int n;
 
-// ---------- UTILITY FUNCTIONS ----------
 void insertEdge(int src, int dest, int directed) {
     NODE *temp = malloc(sizeof(NODE));
     temp->data = dest;
