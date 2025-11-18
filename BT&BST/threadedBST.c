@@ -5,14 +5,14 @@ typedef struct node {
     int data;
     struct node* rlink;
     struct node* llink;
-    int rthread, lthread;
+    int rthread, lthread; // lt:1 means left pointer is a thread, rt:1 means right pointer is a thread
 } NODE;
 
-typedef struct tree {
+typedef struct tree { // Tree wrapper, just holding root node pointer
     NODE* root;
 } tree;
 
-tree* initialize() {
+tree* initialize() { // Initialize an empty threaded BST, allocate memory for tree structure
     tree* temp = malloc(sizeof(tree));
     temp->root = NULL;
     return temp;

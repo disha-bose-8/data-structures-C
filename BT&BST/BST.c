@@ -13,7 +13,16 @@ typedef struct node {
 //------------------------------------------
 // INSERT FUNCTION
 //------------------------------------------
-void insert(NODE** root, int num) {
+
+/*Why NODE** root ?
+root is a pointer to the address of the root node.
+Because:
+If the tree is empty, you will change root inside this function.
+To modify the caller’s root pointer → you must pass its address.
+So NODE** means:
+"I want to modify the original NODE* root stored in main.”*/
+
+void insert(NODE** root, int num) { // ROOT IS A POINTER TO THE ADDRESS OF THE ROOT NODE
     // Create a new node dynamically
     NODE* temp = (NODE*)malloc(sizeof(NODE));
     temp->data = num;
@@ -176,6 +185,54 @@ int count_nonleaves(NODE* root) {
 }
 
 //------------------------------------------
+// HEIGHT OF TREE (NEWLY ADDED FUNCTION)
+//------------------------------------------
+int height(NODE* root) {
+    if (root == NULL)
+        return -1; // height of empty tree is -1
+
+    int lh = height(root->lchild);
+    int rh = height(root->rchild);
+
+    return 1 + (lh > rh ? lh : rh);
+}
+
+//------------------------------------------
+// DEPTH OF A NODE (NEWLY ADDED FUNCTION)
+//------------------------------------------
+int depth(NODE* root, int key, int level) {
+    if (root == NULL)
+        return -1; // not found
+
+    if (root->data == key)
+        return level;
+
+    int left = depth(root->lchild, key, level + 1);
+    if (left != -1)
+        return left;
+
+    return depth(root->rchild, key, level + 1);
+}
+
+/*int depthBST(NODE* root, int key) {
+    int level = 0;
+
+    while (root != NULL) {
+        if (root->data == key)
+            return level;
+
+        if (key < root->data)
+            root = root->lchild;
+        else
+            root = root->rchild;
+
+        level++;
+    }
+    return -1; // not found
+}
+*/
+
+//------------------------------------------
 // MAIN MENU-DRIVEN PROGRAM
 //------------------------------------------
 int main() {
@@ -192,7 +249,9 @@ int main() {
         printf("6. Count Total Nodes\n");
         printf("7. Count Leaf Nodes\n");
         printf("8. Count Non-Leaf Nodes\n");
-        printf("9. Exit\n");
+        printf("9. Height of Tree\n");
+        printf("10. Depth of a Node\n");
+        printf("11. Exit\n");
         printf("---------------------------------\n");
         printf("Enter your choice: ");
         scanf("%d", &ch);
@@ -241,6 +300,21 @@ int main() {
                 break;
 
             case 9:
+                printf("Height of tree = %d\n", height(root));
+                break;
+
+            case 10:
+                printf("Enter node value to find depth: ");
+                scanf("%d", &num);
+                int d;
+                d = depth(root, num, 0);
+                if (d == -1)
+                    printf("Node not found.\n");
+                else
+                    printf("Depth of node %d = %d\n", num, d);
+                break;
+
+            case 11:
                 printf("Exiting...\n");
                 exit(0);
 

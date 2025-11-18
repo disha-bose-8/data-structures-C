@@ -1,18 +1,33 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// For a Binary Search Tree, inorder traversal always prints values in sorted order.
+
+/*What is int *t?
+t is a pointer to int.
+In main, you have int t[100];
+When you pass t to a function, it decays into a pointer to its first element.
+So in this function, t represents your entire tree stored in an array of size 100.*/
+
+/*
+* i is the index in the array representing the current node.
+Root node is at index 0.
+For any node at index i:
+Left child index = 2 * i + 1
+Right child index = 2 * i + 2*/
+
 void inorder(int *t, int i) {
   if (i >= 100 || t[i] == -1) return;
-  inorder(t, 2 * i + 1);
-  printf("%d ", t[i]);
-  inorder(t, 2 * i + 2);
+  inorder(t, 2 * i + 1); // Recursively traverse the left subtree. 2 * i + 1 is the left child index.
+  printf("%d ", t[i]); // Process the current node: print its value.
+  inorder(t, 2 * i + 2); // Recursively traverse the right subtree. 2 * i + 2 is the right child index.
 }
 
 void preorder(int *t, int i) {
   if (i >= 100 || t[i] == -1) return;
-  printf("%d ", t[i]);
-  preorder(t, 2 * i + 1);
-  preorder(t, 2 * i + 2);
+  printf("%d ", t[i]); // First, visit the current node.
+  preorder(t, 2 * i + 1); // Then, traverse the left subtree.
+  preorder(t, 2 * i + 2); // Finally, traverse the right subtree.
 }
 
 void postorder(int *t, int i) {
@@ -34,7 +49,7 @@ void insert(int *t, int x) {
     printf("Tree is full!\n");
     return;
   }
-  t[i] = x;
+  t[i] = x; // Insert the new value at the found position.
 }
 
 int main() {

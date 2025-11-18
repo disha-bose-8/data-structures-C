@@ -2,16 +2,22 @@
 #include <stdlib.h>
 #include <ctype.h> // for isalpha(), isdigit()
 
-typedef struct node {
+/*expression tree is a binary tree where:
+
+leaf nodes = operands
+
+internal nodes = operators*/
+
+typedef struct node { // can be operand (A, B, 1, 2…) or operator (+, -, *, /)
     char data;
     struct node* left;
     struct node* right;
 } NODE;
 
-typedef struct stack {
-    NODE** arr;
-    int top;
-    int size;
+typedef struct stack { // stack is needed to build the tree using postfix expression.
+    NODE** arr; // array of pointers to NODEs
+    int top; // index of top element
+    int size; // maximum size of stack
 } STACK;
 
 // Function to create a new node
