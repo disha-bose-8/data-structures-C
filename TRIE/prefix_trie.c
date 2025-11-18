@@ -2,6 +2,8 @@
 // Created by disha on 17-11-2025.
 //
 
+// In C, if you want to modify the value of a pointer inside a function, you must pass a pointer to that pointer — i.e., a double pointer, also called a pointer to a pointer.
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -10,7 +12,7 @@
 #define MAX_LEN 100 //max size of a word and also size for some arrays (like stack, word buffer).
 
 struct Trie {
-    int isLeaf;
+    int isLeaf; // flag to mark the end of a word
     struct Trie *character[CHAR_SIZE]; // pointers to child nodes for each character, Each index 0–25 corresponds to 'a' to 'z'
 };
 

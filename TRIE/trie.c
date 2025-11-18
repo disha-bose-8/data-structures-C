@@ -3,15 +3,15 @@
 #include <string.h>
 
 typedef struct node {
-    int EOW;                    // End of word flag
-    struct node* child[256];    // Supports all ASCII chars
+    int EOW;                    // End of word flag, for each node
+    struct node* child[256];    // Supports all ASCII chars, each node has 256 children
 } NODE;
 
 NODE* createNode() {
     NODE* newnode = (NODE*)malloc(sizeof(NODE));
     newnode->EOW = 0;
     for (int i=0; i<256; i++)
-        newnode->child[i] = NULL;
+        newnode->child[i] = NULL; //
     return newnode;
 }
 
@@ -20,8 +20,8 @@ void insert(NODE* root, char* key) {
     for (int i=0; key[i] != '\0'; i++) {
         int index = key[i];
         if (cur->child[index] == NULL)
-            cur->child[index] = createNode();
-        cur = cur->child[index];
+            cur->child[index] = createNode(); // Create new node if path doesn't exist
+        cur = cur->child[index]; // Move to the child node
     }
     cur->EOW = 1;
 }
@@ -30,20 +30,36 @@ void insert(NODE* root, char* key) {
 char str[100];
 int length = 0;
 
-void display(NODE* root) {
+/*Assume root stores words: "cat" and "car".
+
+Traversal:
+
+c is added → str = "c"
+
+a is added → str = "ca"
+
+t is added → str = "cat" → printed
+
+Backtrack to "ca"
+
+r is added → str = "car" → printed
+
+Backtrack to "c" and then beyond*/
+
+void display(NODE* root) { // print all the words stored in a Trie
     if (!root) return;
 
     for (int i=0; i<256; i++) {
         if (root->child[i] != NULL) {
 
-            str[length++] = i;   // choose character
+            str[length++] = i;   // choose character, forming current word
 
-            if (root->child[i]->EOW == 1) {
+            if (root->child[i]->EOW == 1) { // if end of word, print it
                 str[length] = '\0';
                 printf("%s\n", str);
             }
 
-            display(root->child[i]);  // recursive call
+            display(root->child[i]);  // recursive call for each word
 
             length--;    // backtrack
         }
@@ -90,7 +106,7 @@ int search(NODE* root, char* key) {
 
 
 int main() {
-    NODE* root = createNode();
+    NODE* root = createNode(); // Initialize root of Trie, empty trie
 
     insert(root, "cat");
     insert(root, "car");

@@ -7,20 +7,22 @@
 #include<stdlib.h>
 #include<string.h>
 #include<stdbool.h> // During crawling, we need to check if the current node is the last node of the word
-#define ALPHABET 26
-#define ARRAY_SIZE(a) sizeof(a)/sizeof(a[0])// to find #of element in an array
-#define CHAR_INDEX(c) ((int)c - (int)'a')// to find the index of a character in the array
+
+#define ALPHABET 26                     // Only lowercase a-z supported (26 letters)
+#define ARRAY_SIZE(a) sizeof(a)/sizeof(a[0])    // Calculate number of elements in an array
+#define CHAR_INDEX(c) ((int)c - (int)'a')       // Convert character 'c' to index 0-25
+
 // Trie Data structure
-struct node
-{
-    struct node* children[ALPHABET]; // Array of pointers to the children of the current node
-    bool EOW; // End of word
+struct node {
+    struct node* children[ALPHABET];  // Array of 26 pointers for child nodes (one per letter)
+    bool EOW;                         // Boolean flag: is this node the End Of a Word?
 };
+
 // Create a new node
 struct node *new_node(void)
 {
     struct node *temp=(struct node*)malloc(sizeof(struct node));
-    if(temp)
+    if(temp) // Check if malloc succeeded
     {
         temp->EOW=false;
         for(int i=0;i<ALPHABET;i++)
