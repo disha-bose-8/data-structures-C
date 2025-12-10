@@ -38,7 +38,7 @@ void display(int n)
     }
 }
 
-// initially [0 0 0 0 0]
+// initially [0 0 0 0 0] ////LIST BFS
 void bfs(int v, int n) { // starting vertex v, total vertices n
     visited[v]=1;
     printf("%d is visited \n",v);
@@ -59,6 +59,18 @@ void bfs(int v, int n) { // starting vertex v, total vertices n
     }
 }
 
+int isConnected_BFS(int n) {
+    for (int i = 0; i < n; i++)
+        visited[i] = 0;
+
+    bfs(0,n); // start BFS at node 0
+
+    for (int i = 0; i < n; i++)
+        if (!visited[i])
+            return 0;   // some node unreachable → NOT CONNECTED
+
+    return 1; // all visited → CONNECTED
+}
 int main()
     {
 

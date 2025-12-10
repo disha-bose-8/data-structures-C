@@ -25,7 +25,7 @@ void inorder(int *t, int i) {
 
 void preorder(int *t, int i) {
   if (i >= 100 || t[i] == -1) return;
-  printf("%d ", t[i]); // First, visit the current node.
+  printf("%d ", t[i]); // First, visit the current node. (ROOT)
   preorder(t, 2 * i + 1); // Then, traverse the left subtree.
   preorder(t, 2 * i + 2); // Finally, traverse the right subtree.
 }

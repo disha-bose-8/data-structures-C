@@ -3,9 +3,7 @@
 #include <ctype.h> // for isalpha(), isdigit()
 
 /*expression tree is a binary tree where:
-
 leaf nodes = operands
-
 internal nodes = operators*/
 
 typedef struct node { // can be operand (A, B, 1, 2…) or operator (+, -, *, /)
@@ -57,7 +55,7 @@ NODE* pop(STACK* stack) {
 
 // Build Expression Tree from Postfix Expression
 NODE* buildExpressionTree(char postfix[]) {
-    STACK* stack = createStack(100);
+    STACK* stack = createStack(100);  // STACK* stack = createStack(strlen(postfix));
     NODE* t1, *t2, *temp;
     int i = 0;
     char symbol;

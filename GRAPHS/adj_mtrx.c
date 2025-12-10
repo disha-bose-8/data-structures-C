@@ -13,7 +13,7 @@
 If there’s an edge between vertex start and end, we mark both directions as 1 because this program represents an undirected graph.
 For a directed graph, you would only set graph[start][end] = 1; and not the reverse.*/
 
-void addEdge(int graph[Max_vertices][Max_vertices], int start, int end)
+void addEdge(int graph[Max_vertices][Max_vertices], int start, int end) // start and end are vetices
     {
   graph[start][end] = 1; // this much for directed graph only
   graph[end][start] = 1; // for undirected graph

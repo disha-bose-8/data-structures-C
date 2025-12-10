@@ -3,7 +3,9 @@
 // Double Hashing Implementation
 //
 
-/*In Linear Probing, if your seat (index) is taken, you just move to the next seat (+1).In Double Hashing, if your seat is taken, you calculate a new step size and jump by that amount.Hash 1 ($h_1$): Determines the Start Index.Hash 2 ($h_2$): Determines the Step Size (how far to jump if there is a collision).*/
+/*In Linear Probing, if your seat (index) is taken, you just move to the next seat (+1).In Double Hashing, if your seat is taken,
+you calculate a new step size and jump by that amount.Hash 1 ($h_1$): Determines the Start Index.Hash 2 ($h_2$):
+Determines the Step Size (how far to jump if there is a collision).*/
 
 //Index = (h_1(key) + i * h_2(key)) \% SIZE
 //$h_2(key)$: Often PRIME - (key % PRIME). Important: This result must never be 0!

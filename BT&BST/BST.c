@@ -61,7 +61,7 @@ void insert(NODE** root, int num) { // ROOT IS A POINTER TO THE ADDRESS OF THE R
 void inorder(NODE* root) {
     if (root) {
         inorder(root->lchild);          // visit left subtree
-        printf("%d ", root->data);      // print root
+        printf("%d ", root->data);      // print
         inorder(root->rchild);          // visit right subtree
     }
 }
@@ -164,7 +164,7 @@ int count_leaves(NODE* root) {
     if (root == NULL)
         return 0;
 
-    // If both children are NULL, it's a leaf
+    // If both children are NULL, it's a leaf ******************************************
     if (root->lchild == NULL && root->rchild == NULL)
         return 1;
 
@@ -200,6 +200,11 @@ int height(NODE* root) {
 //------------------------------------------
 // DEPTH OF A NODE (NEWLY ADDED FUNCTION)
 //------------------------------------------
+
+/*root → current node you are checking
+key → value whose depth you want
+level → current depth (starts from 0 for root)*/
+
 int depth(NODE* root, int key, int level) {
     if (root == NULL)
         return -1; // not found

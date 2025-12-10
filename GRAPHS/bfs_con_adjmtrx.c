@@ -25,7 +25,7 @@ int isEmpty() {
     return front > rear;
 }
 
-// BFS traversal
+// BFS traversal ///// ARRAY BFS***********
 void bfs(int adj[MAX][MAX], int n, int start) {
     int i;
     visited[start] = 1;
@@ -41,6 +41,18 @@ void bfs(int adj[MAX][MAX], int n, int start) {
         }
     }
 }
+
+// DFS ARRAY
+void DFS(int u) {
+    visited[u] = 1;
+
+    for (int v = 0; v < n; v++) {
+        if (G[u][v] == 1 && !visited[v]) {
+            DFS(v);
+        }
+    }
+}
+
 
 // Function to check if graph is connected
 int isConnected(int adj[MAX][MAX], int n) {

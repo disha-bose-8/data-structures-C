@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct root {
+typedef struct root { // represents one node in a binary tree
     int data;
     struct root *rlink;
     struct root *llink;

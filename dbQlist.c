@@ -2,7 +2,7 @@
 // Created by disha on 01-09-2025.
 //
 
-//Program for double eneded Queue using doubly linked list
+//Program for double ended Queue using doubly linked list
 #include <stdlib.h>
 #include <stdio.h>
 

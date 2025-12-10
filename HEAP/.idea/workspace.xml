@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="51554ae9-a533-4704-a178-7666d7096fd1" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../.idea/copilot.data.migration.ask.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/copilot.data.migration.ask2agent.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/editor.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BT&amp;BST/BST.c" beforeDir="false" afterPath="$PROJECT_DIR$/../BT&amp;BST/BST.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BT&amp;BST/bTreestack.c" beforeDir="false" afterPath="$PROJECT_DIR$/../BT&amp;BST/bTreestack.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BT&amp;BST/exptree.c" beforeDir="false" afterPath="$PROJECT_DIR$/../BT&amp;BST/exptree.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CDLL.c" beforeDir="false" afterPath="$PROJECT_DIR$/../LINKED LIST IMP/CDLL.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CLL.c" beforeDir="false" afterPath="$PROJECT_DIR$/../LINKED LIST IMP/circlast.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GRAPHS/BSF.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GRAPHS/adj_list.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GRAPHS/adj_list_ud.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GRAPHS/adj_mtrx.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GRAPHS/bfs_arr.c" beforeDir="false" afterPath="$PROJECT_DIR$/../GRAPHS/bfs_arr.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GRAPHS/bfs_con_adjmtrx.c" beforeDir="false" afterPath="$PROJECT_DIR$/../GRAPHS/bfs_con_adjmtrx.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GRAPHS/con&amp;path_ud.c" beforeDir="false" afterPath="$PROJECT_DIR$/../GRAPHS/con&amp;path_ud.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../HASHING/chaining.c" beforeDir="false" afterPath="$PROJECT_DIR$/../HASHING/chaining.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/heap_arr.c" beforeDir="false" afterPath="$PROJECT_DIR$/heap_arr.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Qarr.c" beforeDir="false" afterPath="$PROJECT_DIR$/../QUEUE/Qarr.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SLL.c" beforeDir="false" afterPath="$PROJECT_DIR$/../LINKED LIST IMP/SLL.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TRIE/trie.c" beforeDir="false" afterPath="$PROJECT_DIR$/../TRIE/trie.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cQarr.c" beforeDir="false" afterPath="$PROJECT_DIR$/../QUEUE/cQarr.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../circfirst.c" beforeDir="false" afterPath="$PROJECT_DIR$/../LINKED LIST IMP/circfirst.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../circnode.c" beforeDir="false" afterPath="$PROJECT_DIR$/../LINKED LIST IMP/circnode.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cmake-build-debug/.cmake/api/v1/reply/cache-v2-553fc859b5c9d31a427c.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cmake-build-debug/.cmake/api/v1/reply/cmakeFiles-v1-10983e0d8b450c84d000.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cmake-build-debug/.cmake/api/v1/reply/codemodel-v2-9aedb1f795d3d66a49fa.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cmake-build-debug/.cmake/api/v1/reply/index-2025-08-24T02-32-53-0771.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cmake-build-debug/.cmake/api/v1/reply/target-data_structures_C-Debug-020829a87a6593783c31.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cmake-build-debug/.cmake/api/v1/reply/toolchains-v1-7ef91c14dc3dae0986e2.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cmake-build-debug/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../cmake-build-debug/CMakeCache.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cmake-build-debug/CMakeFiles/3.30.5/CMakeCCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cmake-build-debug/CMakeFiles/3.30.5/CMakeCXXCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cmake-build-debug/CMakeFiles/3.30.5/CMakeDetermineCompilerABI_C.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cmake-build-debug/CMakeFiles/3.30.5/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cmake-build-debug/CMakeFiles/3.30.5/CMakeRCCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cmake-build-debug/CMakeFiles/3.30.5/CMakeSystem.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cmake-build-debug/CMakeFiles/3.30.5/CompilerIdC/CMakeCCompilerId.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cmake-build-debug/CMakeFiles/3.30.5/CompilerIdC/a.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cmake-build-debug/CMakeFiles/3.30.5/CompilerIdCXX/CMakeCXXCompilerId.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cmake-build-debug/CMakeFiles/3.30.5/CompilerIdCXX/a.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cmake-build-debug/CMakeFiles/CMakeConfigureLog.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../cmake-build-debug/CMakeFiles/CMakeConfigureLog.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cmake-build-debug/CMakeFiles/clion-Debug-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../cmake-build-debug/CMakeFiles/clion-Debug-log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cmake-build-debug/CMakeFiles/clion-environment.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../cmake-build-debug/CMakeFiles/clion-environment.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cmake-build-debug/CMakeFiles/data_structures_C.dir/main.cpp.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cmake-build-debug/CMakeFiles/rules.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/../cmake-build-debug/CMakeFiles/rules.ninja" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cmake-build-debug/build.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/../cmake-build-debug/build.ninja" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cmake-build-debug/cmake_install.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/../cmake-build-debug/cmake_install.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cqlist.c" beforeDir="false" afterPath="$PROJECT_DIR$/../QUEUE/cqlist.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dbQlist.c" beforeDir="false" afterPath="$PROJECT_DIR$/../dbQlist.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../doublelist.c" beforeDir="false" afterPath="$PROJECT_DIR$/../LINKED LIST IMP/doublelist.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../josephus.c" beforeDir="false" afterPath="$PROJECT_DIR$/../QUEUE/josephus.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../josephusQ.c" beforeDir="false" afterPath="$PROJECT_DIR$/../QUEUE/josephusQ.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pQlist.c" beforeDir="false" afterPath="$PROJECT_DIR$/../QUEUE/pQlist.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../paran.c" beforeDir="false" afterPath="$PROJECT_DIR$/../INF PSF PRF/paran.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../priorityQ.c" beforeDir="false" afterPath="$PROJECT_DIR$/../QUEUE/priorityQ.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../qlist.c" beforeDir="false" afterPath="$PROJECT_DIR$/../QUEUE/qlist.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recursion.c" beforeDir="false" afterPath="$PROJECT_DIR$/../STACK/recursion.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../stack_array.c" beforeDir="false" afterPath="$PROJECT_DIR$/../STACK/stack_array.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../stack_list.c" beforeDir="false" afterPath="$PROJECT_DIR$/../STACK/stack_list.c" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "disha-bose-8"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/disha-bose-8/data-structures-C.git",
+    "accountId": "7c0c79e9-a02e-4a79-980b-1c2e73501eed"
+  }
+}]]></component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 6
+}]]></component>
+  <component name="ProjectId" id="36dSJHJFXHHyTJJo4zzzHEQpN2N" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/disha/CLionProjects/data structures C/HEAP"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-975db3bf15a3-31b6be0877a2-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-241.18034.82" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="51554ae9-a533-4704-a178-7666d7096fd1" name="Changes" comment="" />
+      <created>1765334881848</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1765334881848</updated>
+    </task>
+    <servers />
+  </component>
+</project>

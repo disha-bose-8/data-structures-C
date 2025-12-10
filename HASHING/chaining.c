@@ -38,9 +38,7 @@ NODE *insert(int key, NODE *root){ // root → pointer to the head of the linked
   }
 
   NODE *cur=root;
-  if(cur==NULL){
-    return temp;
-  }
+
   while(cur->link!=NULL){
     cur=cur->link;
   }
@@ -72,7 +70,7 @@ void search(int key, NODE *a[]){
   while(cur!=NULL){ // traverse
     if(cur->data==key){
       printf("Search successful %d\t",cur->data);
-      break;
+      return;
 
     }
     cur=cur->link;
@@ -88,7 +86,7 @@ void deleteKey(int key, NODE *a[]) {
   while (cur != NULL) {
     if (cur->data == key) {
       if (prev == NULL) {          // first node in chain
-        a[index] = cur->link;
+        a[index] = cur->link; // cur->link in this case is NULL
       } else {                     // middle/last node
         prev->link = cur->link;
       }

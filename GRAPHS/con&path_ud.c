@@ -14,7 +14,7 @@ typedef struct node {
 
 NODE *a[MAX];
 int visited[MAX];
-int parent[MAX];
+int parent[MAX]; //
 int n;
 
 void insertEdge(int src, int dest) {

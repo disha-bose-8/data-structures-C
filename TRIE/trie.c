@@ -35,15 +35,10 @@ int length = 0;
 Traversal:
 
 c is added → str = "c"
-
 a is added → str = "ca"
-
 t is added → str = "cat" → printed
-
 Backtrack to "ca"
-
 r is added → str = "car" → printed
-
 Backtrack to "c" and then beyond*/
 
 void display(NODE* root) { // print all the words stored in a Trie
